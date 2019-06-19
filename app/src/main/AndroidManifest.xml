@@ -12,6 +12,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".PastiActivity"></activity>
         <activity android:name=".SchedaActivity" />
+        <activity android:name=".TimerActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
