@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Bodybuilding</string>
+    <string name="action_home">Home</string>
+    <string name="button_scheda">Scheda</string>
+    <string name="button_dieta">Dieta</string>
+    <string name="button_timer">Timer</string>
+    <string name="txt_home">Bentornato</string>
 </resources>
