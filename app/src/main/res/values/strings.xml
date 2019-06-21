@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">Bodybuilding</string>
-    <string name="action_home">Home</string>
-    <string name="button_scheda">Scheda</string>
-    <string name="button_dieta">Dieta</string>
-    <string name="button_timer">Timer</string>
-    <string name="txt_home">Bentornato</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottombutton_scheda">Scheda</string>
+    <string name="bottom_dieta">Dieta</string>
+    <string name="bottom_timer">Cronometro</string>
+    <string name="button_start">Start</string>
+    <string name="button_pause">Pause</string>
+    <string name="button_reset">Reset</string>
 </resources>
