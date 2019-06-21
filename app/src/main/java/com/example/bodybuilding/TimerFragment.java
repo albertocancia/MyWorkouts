@@ -1,5 +1,6 @@
 package com.example.bodybuilding;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.Chronometer;
 import android.widget.Toast;
 
 public class TimerFragment extends Fragment implements View.OnClickListener{
+
     private Chronometer chronometer;
     private long pauseOffset;
     private boolean running;
@@ -32,13 +34,13 @@ public class TimerFragment extends Fragment implements View.OnClickListener{
         chronometer.setFormat("Time: %s");
         chronometer.setBase(SystemClock.elapsedRealtime());
 
-
         button_start.setOnClickListener(this);
         button_pause.setOnClickListener(this);
         button_reset.setOnClickListener(this);
 
         return view;
     }
+    
 
     @Override
     public void onClick(View v){
