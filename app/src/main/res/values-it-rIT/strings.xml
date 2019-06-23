@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bodybuilding</string>
+    <string name="bottom_dieta">Dieta</string>
+    <string name="bottom_home">Home</string>
+    <string name="bottom_timer">Cronometro</string>
+    <string name="bottombutton_scheda">Scheda</string>
+    <string name="button_pause">Pausa</string>
+    <string name="button_reset">Ripristina</string>
+    <string name="button_start">Inizia</string>
+    <string name="login_error_message">Errore nel login</string>
+    <string name="login_error_title">Errore titolo</string>
+</resources>
