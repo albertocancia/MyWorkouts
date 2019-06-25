@@ -10,4 +10,11 @@
     <string name="button_start">Inizia</string>
     <string name="login_error_message">Errore nel login</string>
     <string name="login_error_title">Errore titolo</string>
+    <string name="password_hint">Password</string>
+    <string name="sign_up_button_label">Registrati</string>
+    <string name="email_hint">Email</string>
+    <string name="login_button_label">Accedi</string>
+    <string name="sign_up_text">Registrati</string>
+    <string name="signup_error_message">Errore registrazione</string>
+    <string name="signup_error_title">Errore titolo</string>
 </resources>
