@@ -17,4 +17,6 @@
     <string name="sign_up_text">Registrati</string>
     <string name="signup_error_message">Errore registrazione</string>
     <string name="signup_error_title">Errore titolo</string>
+    <string name="sign_out">Disconnettiti</string>
+    <string name="input_insert">Inserisci</string>
 </resources>

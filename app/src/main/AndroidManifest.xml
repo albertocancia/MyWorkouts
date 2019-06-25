@@ -10,6 +10,8 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".NewDietActivity"></activity>
+        <activity android:name=".NewItemActivity" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />

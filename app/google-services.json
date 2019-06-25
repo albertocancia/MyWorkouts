@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "496830944985",
+    "firebase_url": "https://bodybuilding-92e55.firebaseio.com",
+    "project_id": "bodybuilding-92e55",
+    "storage_bucket": "bodybuilding-92e55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496830944985:android:634bd8a9b972dc9f",
+        "android_client_info": {
+          "package_name": "com.example.bodybuildingg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496830944985-ucq4c2t6pq5n1g79li4fltq77tt1q52v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bodybuildingg",
+            "certificate_hash": "3c1d856e74881e918c6940bfd24b4daf61209cda"
+          }
+        },
+        {
+          "client_id": "496830944985-qs11ra7rocumabvdv7imedrgeb7akmcl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bodybuildingg",
+            "certificate_hash": "ee521f87f42ab6ae206b83fb7050def27209ce71"
+          }
+        },
+        {
+          "client_id": "496830944985-u8k4j5fti03g654ijjrcf2ptru5vlivd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkCWJey4yET-XnjSvDdqEjIkQI5VFWPaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496830944985-u8k4j5fti03g654ijjrcf2ptru5vlivd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

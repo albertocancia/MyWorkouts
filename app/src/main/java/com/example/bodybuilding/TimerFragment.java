@@ -1,6 +1,10 @@
 package com.example.bodybuilding;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -13,11 +17,17 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import static android.content.Context.MODE_PRIVATE;
+
+
 public class TimerFragment extends Fragment implements View.OnClickListener{
 
     private Chronometer chronometer;
-    private long pauseOffset;
-    private boolean running;
+    private long pauseOffset = 0;
+    private boolean running = false;
     private Button button_start, button_reset, button_pause;
     View view;
 
@@ -41,8 +51,6 @@ public class TimerFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-
-    @Override
     public void onClick(View v){
         if(v == view.findViewById(R.id.button_start)){
             if(!running){
@@ -57,7 +65,8 @@ public class TimerFragment extends Fragment implements View.OnClickListener{
                 running = false;
             }
         }else if(v == view.findViewById(R.id.button_reset)){
-            chronometer.setBase(SystemClock.elapsedRealtime());
+            long startTime = SystemClock.elapsedRealtime();
+            chronometer.setBase(startTime);
             pauseOffset = 0;
         }
     }
