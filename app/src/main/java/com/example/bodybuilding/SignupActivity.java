@@ -68,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    public void createAccount(String email, String password){
+    /*public void createAccount(String email, String password){
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -89,5 +89,5 @@ public class SignupActivity extends AppCompatActivity {
                         // ...
                     }
                 });
-    }
+    }*/
 }
