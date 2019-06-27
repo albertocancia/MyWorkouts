@@ -23,11 +23,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
+/*import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.FirebaseDatabase;*/
 
 
 public class MainActivity extends AppCompatActivity {
@@ -86,11 +86,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_signout) {
             Log.d(TAG,"action SignOut clicked");
-            /*FirebaseAuth.getInstance().signOut();
-            mFirebaseUser = null;        // user is now signed out
-            startActivity(new Intent(MainActivity.this, LogInActivity.class));
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
-            return true;*/
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
