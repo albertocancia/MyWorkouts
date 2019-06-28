@@ -10,15 +10,6 @@
         android:id="@+id/tool_bar"
         layout="@layout/toolbar" >
     </include>
-
-    <!--<EditText
-        android:id="@+id/edittext"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ems="10"
-        android:gravity="top"
-        android:hint="@string/input_insert"
-        android:inputType="textMultiLine" />-->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

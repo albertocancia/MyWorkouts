@@ -32,7 +32,7 @@ public class NewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
-        ListView listView = findViewById(R.id.listViewDemo);
+
 
         // set the Home button
         Toolbar myToolbar = findViewById(R.id.tool_bar);
@@ -40,35 +40,44 @@ public class NewItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        eserciziList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this, R.layout.row, R.id.textViewList, eserciziList);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        //+++++++++++++++ INIZIO CODICE UGUALE ++++++++++++++++++
+        //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+        ListView listView = findViewById(R.id.listViewDemo);   //oggetto listView collegato a listViewDemo di activity_new_item.xml
+        eserciziList = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(this, R.layout.row, R.id.textViewList, eserciziList);  //assegno all'adapter l'arraylist eserciziList
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance(); //collegamento a firestore
 
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                eserciziList.add("Primo");
+                eserciziList.add("Primo");  //per vedere fin dove funziona
                 if (task.isSuccessful()) {
-                    List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
-                    Iterator<DocumentSnapshot> iterator = myListOfDocuments.iterator();
+                    List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();   //prendo tutti i documenti della raccolta esercizi
+                    Iterator<DocumentSnapshot> iterator = myListOfDocuments.iterator();   //uso Iterator per scorrerli uno ad uno
                     DocumentSnapshot ds;
-                    eserciziList.add("Secondo");
-                    while (iterator.hasNext()) {
+                    eserciziList.add("Secondo");  //per vedere fin dove funziona
+                    while (iterator.hasNext()) {    //finchè ci sono documentSnapshot
                         ds = iterator.next();
-                        eserciziList.add((String)ds.get("Nome"));
+                        eserciziList.add((String)ds.get("Nome"));  //scrivi il valore del campo nome nell'arraylist
                     }
-                    eserciziList.add("Terzo");
+                    eserciziList.add("Terzo");   //per vedere fin dove funziona
                 }else
-                    eserciziList.add("Quarto");
+                    eserciziList.add("Quarto");  //per vedere fin dove funziona
             }
         });
-        eserciziList.add("prova1");
-        eserciziList.add("prova2");
+        eserciziList.add("Fuori funzione");
 
         listView.setAdapter(adapter);
 
-
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // +++++++++++++++++ FINE CODICE UGUALE ++++++++++++++++
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++
     }
 
     @Override
