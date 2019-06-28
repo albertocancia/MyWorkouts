@@ -48,20 +48,24 @@ public class NewItemActivity extends AppCompatActivity {
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                eserciziList.add("Primo");
                 if (task.isSuccessful()) {
                     List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
                     Iterator<DocumentSnapshot> iterator = myListOfDocuments.iterator();
                     DocumentSnapshot ds;
-                    Esercizio es;
+                    eserciziList.add("Secondo");
                     while (iterator.hasNext()) {
                         ds = iterator.next();
-                        //es = new Esercizio((String)ds.get("Nome"),(String)ds.get("Categoria"));
                         eserciziList.add((String)ds.get("Nome"));
                     }
-
-                }
+                    eserciziList.add("Terzo");
+                }else
+                    eserciziList.add("Quarto");
             }
         });
+        eserciziList.add("prova1");
+        eserciziList.add("prova2");
+
         listView.setAdapter(adapter);
 
 
@@ -84,13 +88,7 @@ public class NewItemActivity extends AppCompatActivity {
     }
 
 
-    protected void onResume(){
-        super.onResume();
-        // open the DB and update the listview
-        adapter.clear();
-        adapter.addAll(eserciziList);
-        adapter.notifyDataSetChanged();
-    }
+
 
 
 }
