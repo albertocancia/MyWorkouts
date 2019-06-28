@@ -9,7 +9,9 @@
     <include
         android:id="@+id/tool_bar"
         layout="@layout/toolbar" >
+
     </include>
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -20,4 +22,14 @@
             android:layout_height="wrap_content" >
         </ListView>
     </FrameLayout>
+    <EditText
+        android:id="@+id/newTodoEditText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:ems="10"
+        android:hint="Insert todo"
+        android:inputType="textMultiLine"
+        android:gravity="top"/>
+
+
 </LinearLayout>
