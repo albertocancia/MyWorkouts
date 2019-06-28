@@ -32,7 +32,7 @@ public class NewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);// to read the todo string
-        ListView listView = findViewById(R.id.listViewDemo);
+        ListView listView = findViewById(R.id.list);
 
         Toolbar myToolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(myToolbar);
@@ -43,7 +43,7 @@ public class NewItemActivity extends AppCompatActivity {
 
 
         eserciziList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this, R.layout.row, R.id.textViewList, eserciziList);
+        adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, android.R.id.text1,  eserciziList);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
