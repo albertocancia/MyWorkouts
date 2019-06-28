@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             // Explicit intent creation
             Intent intent = new Intent(this.getApplicationContext(), NewDietActivity.class);
             // Start as sub-activity for result
-            startActivityForResult(intent, SUBACTIVITY_NEW_DIET);
+            startActivity(intent);
             return true;
         } else if (id == R.id.action_signout) {
             Log.d(TAG,"action SignOut clicked");

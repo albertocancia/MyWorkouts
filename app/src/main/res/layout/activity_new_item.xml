@@ -12,16 +12,12 @@
 
     </include>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <ListView
             android:id="@+id/listViewDemo"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:numColumns="auto_fit">
         </ListView>
-    </FrameLayout>
     <EditText
         android:id="@+id/newTodoEditText"
         android:layout_width="match_parent"

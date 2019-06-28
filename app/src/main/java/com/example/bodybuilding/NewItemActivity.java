@@ -62,9 +62,6 @@ public class NewItemActivity extends AppCompatActivity {
             }
         });
         listView.setAdapter(adapter);
-
-
-
     }
 
     @Override
@@ -72,9 +69,7 @@ public class NewItemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // goto back activity from here
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("ITEM_TASK", editText.getText().toString());
-                setResult(RESULT_OK, resultIntent);
+                startActivity(new Intent(this.getApplicationContext(), MainActivity.class));
                 finish();
                 return true;
 
@@ -82,9 +77,4 @@ public class NewItemActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
-
-
 }
