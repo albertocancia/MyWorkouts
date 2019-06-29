@@ -7,19 +7,10 @@
     <include
         android:id="@+id/tool_bar"
         layout="@layout/toolbar" >
-
     </include>
     <ListView
         android:id="@+id/list"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </ListView>
-    <EditText
-        android:id="@+id/newTodoEditText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:gravity="top"/>
-
+        android:numColumns="auto_fit"/>
 </LinearLayout>

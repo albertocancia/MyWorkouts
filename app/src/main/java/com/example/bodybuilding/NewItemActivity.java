@@ -58,6 +58,7 @@ public class NewItemActivity extends AppCompatActivity {
                     while (iterator.hasNext()) {
                         ds = iterator.next();
                         eserciziList.add((String)ds.get("Nome"));
+                        adapter.notifyDataSetChanged();
                     }
                 }
             }
