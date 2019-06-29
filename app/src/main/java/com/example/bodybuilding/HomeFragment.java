@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,8 +27,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        TextView tv1 = v.findViewById(R.id.txtEmail);
-        tv1.setText(getEmail());
+        //TextView tv1 = v.findViewById(R.id.txtEmail);
+        //tv1.setText(getEmail());
         TextView tv2 = v.findViewById(R.id.txtNome);
         tv2.setText(getNome());
         return v;
@@ -44,25 +45,26 @@ public class HomeFragment extends Fragment {
     }
 
     public String getNome(){
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        if (user != null) {
-            db.collection("Utenti").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
-                        Iterator<DocumentSnapshot> iterator = myListOfDocuments.iterator();
-                        DocumentSnapshot ds;
-                        ds = iterator.next();
-                        //name = (String)ds.get("Nome");
-                        name = "prova";
+        DocumentReference docRef = db.collection("Utenti").document(user.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        name = (String)document.get("Nome");
+                    } else {
+                        //Log.d(TAG, "No such document");
                     }
+                } else {
+                    //Log.d(TAG, "get failed with ", task.getException());
                 }
-            });
-        }
-        name = "provafuori";
-        return name;
+            }
+        });
+        */
+        return "";
     }
 }
