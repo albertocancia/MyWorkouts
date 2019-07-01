@@ -63,8 +63,8 @@ public class HomeFragment extends Fragment {
                     //Log.d(TAG, "get failed with ", task.getException());
                 }
             }
-        });
-        */
+        });*/
+
         return "";
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,18 +13,29 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class NewItemActivity extends AppCompatActivity {
     EditText editText = null;
-
+    final String TAG = "test";
     ArrayAdapter<String> adapter;            //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
 
@@ -43,11 +55,11 @@ public class NewItemActivity extends AppCompatActivity {
 
 
         eserciziList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this,   android.R.layout.simple_list_item_1, android.R.id.text1,  eserciziList);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, eserciziList);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        
+
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -57,13 +69,21 @@ public class NewItemActivity extends AppCompatActivity {
                     DocumentSnapshot ds;
                     while (iterator.hasNext()) {
                         ds = iterator.next();
-                        eserciziList.add((String)ds.get("Nome"));
+                        eserciziList.add((String) ds.get("Nome"));
                         adapter.notifyDataSetChanged();
                     }
                 }
             }
         });
         listView.setAdapter(adapter);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        CollectionReference cr = db.collection("Schede");
+
+        String es[] = {"Prova","prova2","prova3"};
+        List<String> esercizi = Arrays.asList(es);
+        Scheda scheda = new Scheda(user.getUid(),"Lunedì",esercizi);
+        cr.add(scheda);
     }
 
     @Override
