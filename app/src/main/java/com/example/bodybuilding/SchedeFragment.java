@@ -47,7 +47,7 @@ public class SchedeFragment extends Fragment {
     }
 
     private void setUpRecyclerView() {
-        Query query = schedeRef.orderBy("uid");
+        Query query = schedeRef.whereEqualTo("uid", user.getUid());
 
         FirestoreRecyclerOptions<Scheda> options = new FirestoreRecyclerOptions.Builder<Scheda>()
                 .setQuery(query, Scheda.class)
