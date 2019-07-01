@@ -23,11 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-/*import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;*/
 
 
 public class MainActivity extends AppCompatActivity {
@@ -91,41 +86,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    // Call Back method  to get the Message form other Activity
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult() -> " + data);
-        switch (requestCode) {
-            case SUBACTIVITY_NEW_ITEM:
-                switch (resultCode) {
-                    case Activity.RESULT_OK: // add the new todoItem
-                        String returnValue = data.getStringExtra("ITEM_TASK");
-                        Log.d(TAG, "onActivityResult() -> " + returnValue);
-                        SchedeFragment.addNewItem(returnValue);
-                        return;
-                    case Activity.RESULT_CANCELED: // nothing to do
-                        return;
-                    default:
-                        throw new RuntimeException("Case not implemented");
-                }
-            case SUBACTIVITY_NEW_DIET:
-                switch (resultCode) {
-                    case Activity.RESULT_OK: // add the new todoItem
-                        String returnValue = data.getStringExtra("DIET_TASK");
-                        Log.d(TAG, "onActivityResult() -> " + returnValue);
-                        DietaFragment.addNewItem(returnValue);
-                        return;
-                    case Activity.RESULT_CANCELED: // nothing to do
-                        return;
-                    default:
-                        throw new RuntimeException("Case not implemented");
-                }
-            default:
-                throw new RuntimeException();
-        }
-    }*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

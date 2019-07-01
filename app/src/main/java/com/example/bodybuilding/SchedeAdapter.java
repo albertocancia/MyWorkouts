@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SchedeAdapter extends FirestoreRecyclerAdapter<Scheda, SchedeAdapter.SchedeHolder> {
 
-    public SchedeAdapter(@NonNull FirestoreRecyclerOptions<Scheda> options) {
+    public SchedeAdapter(FirestoreRecyclerOptions<Scheda> options) {
         super(options);
     }
 
@@ -22,6 +22,7 @@ public class SchedeAdapter extends FirestoreRecyclerAdapter<Scheda, SchedeAdapte
     protected void onBindViewHolder(@NonNull SchedeHolder holder, int position, @NonNull Scheda model) {
         holder.textViewGiorni.setText(model.getGiorno());
         List<String> l = model.getEsercizi();
+        holder.textViewEsercizi.setText("");
         for(int i = 0; i < l.size(); i++) {
             holder.textViewEsercizi.append(l.get(i) + "\n");
         }

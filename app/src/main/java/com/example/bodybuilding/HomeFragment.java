@@ -13,24 +13,30 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-    String name="";
+    TextView txtUid;
+    TextView txtNome;
+    TextView txtPeso;
+    TextView txtAltezza;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference utentiRef = db.collection("Utenti");
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        //TextView tv1 = v.findViewById(R.id.txtEmail);
-        //tv1.setText(getEmail());
-        TextView tv2 = v.findViewById(R.id.txtNome);
-        tv2.setText(getNome());
+
         return v;
     }
 
