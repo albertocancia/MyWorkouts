@@ -32,8 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;*/
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
-    static final int SUBACTIVITY_NEW_ITEM = 1;
-    static final int SUBACTIVITY_NEW_DIET = 2;
     private Toolbar toolbar;
     private BottomNavigationView bottomNav;
     private FirebaseAuth mAuth;
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             // Explicit intent creation
             Intent intent = new Intent(this.getApplicationContext(), NewItemActivity.class);
             // Start as sub-activity for result
-            startActivityForResult(intent, SUBACTIVITY_NEW_ITEM);
+            startActivity(intent);
             return true;
         }else if (id == R.id.action_new_diet) {
             Log.d(TAG,"action ADD diet has clicked");
@@ -95,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Call Back method  to get the Message form other Activity
-    @Override
+   /* @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult() -> " + data);
@@ -127,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 throw new RuntimeException();
         }
-    }
+    }*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

@@ -3,25 +3,27 @@ package com.example.bodybuilding;
 import java.util.List;
 
 public class Scheda {
-    private String Uid;
-    private String Giorno;
-    List<String> Esercizi;
+    private String uid;
+    private String giorno;
+    private List<String> esercizi;
 
-    public Scheda(String Uid, String Giorno, List<String> Esercizi){
-        this.Uid = Uid;
-        this.Giorno = Giorno;
-        this.Esercizi = Esercizi;
+    public Scheda(){}
+
+    public Scheda(String uid, String giorno, List<String> esercizi){
+        this.uid = uid;
+        this.giorno = giorno;
+        this.esercizi = esercizi;
     }
 
     public String getUid() {
-        return Uid;
+        return uid;
     }
 
     public String getGiorno() {
-        return Giorno;
+        return giorno;
     }
 
     public List<String> getEsercizi() {
-        return Esercizi;
+        return esercizi;
     }
 }

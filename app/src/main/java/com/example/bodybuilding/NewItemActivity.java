@@ -34,10 +34,10 @@ import java.util.List;
 import java.util.Map;
 
 public class NewItemActivity extends AppCompatActivity {
-    EditText editText = null;
-    final String TAG = "test";
+    final String TAG = "NewItemActivity";
     ArrayAdapter<String> adapter;            //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -57,10 +57,8 @@ public class NewItemActivity extends AppCompatActivity {
         eserciziList = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, eserciziList);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
-        db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        /*db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -80,10 +78,10 @@ public class NewItemActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         CollectionReference cr = db.collection("Schede");
 
-        String es[] = {"Prova","prova2","prova3"};
+        /*String es[] = {"Prova","prova2","prova3"};
         List<String> esercizi = Arrays.asList(es);
         Scheda scheda = new Scheda(user.getUid(),"Lunedì",esercizi);
-        cr.add(scheda);
+        cr.add(scheda);*/
     }
 
     @Override
