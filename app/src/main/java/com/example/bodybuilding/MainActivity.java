@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,69 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
 
+    }
+
+    public void perform_action(View v) {
+        TextView textViewEsercizio1, textViewEsercizio2, textViewEsercizio3 ,textViewEsercizio4,
+                textViewEsercizio5, textViewEsercizio6, textViewEsercizio7, textViewEsercizio8, textViewEsercizio9;
+        Intent intent;
+
+        switch(v.getId()){
+            case R.id.text_view_esercizio1:
+                textViewEsercizio1 = findViewById(R.id.text_view_esercizio1);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio1.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio2:
+                textViewEsercizio2 = findViewById(R.id.text_view_esercizio2);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio2.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio3:
+                textViewEsercizio3 = findViewById(R.id.text_view_esercizio3);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio3.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio4:
+                textViewEsercizio4 = findViewById(R.id.text_view_esercizio4);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio4.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio5:
+                textViewEsercizio5 = findViewById(R.id.text_view_esercizio5);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio5.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio6:
+                textViewEsercizio6 = findViewById(R.id.text_view_esercizio6);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio6.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio7:
+                textViewEsercizio7 = findViewById(R.id.text_view_esercizio7);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio7.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio8:
+                textViewEsercizio8 = findViewById(R.id.text_view_esercizio8);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio8.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio9:
+                textViewEsercizio9 = findViewById(R.id.text_view_esercizio9);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("val_textView", textViewEsercizio9.getText().toString());
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
