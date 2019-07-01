@@ -22,8 +22,8 @@
             android:layout_alignParentStart="true"
             android:text="Serie"
             android:textSize="32dp" />
-        <EditText
-            android:id="@+id/edit_text_serie"
+        <TextView
+            android:id="@+id/txt_serie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
@@ -41,8 +41,8 @@
             android:layout_alignParentStart="true"
             android:text="Ripetizioni"
             android:textSize="32dp" />
-        <EditText
-            android:id="@+id/edit_text_ripetizioni"
+        <TextView
+            android:id="@+id/txt_ripetizioni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
@@ -59,8 +59,8 @@
         android:layout_alignParentStart="true"
         android:text="Peso"
         android:textSize="32dp" />
-    <EditText
-        android:id="@+id/edit_text_peso"
+    <TextView
+        android:id="@+id/txt_peso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""

@@ -11,7 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".EserciziActivity"></activity>
-        <activity android:name=".EsercizioActivity" />
         <activity android:name=".GiorniActivity" />
         <activity android:name=".NewDietActivity" />
         <activity android:name=".NewItemActivity" />

@@ -190,6 +190,10 @@ public class MainActivity extends AppCompatActivity {
         //updateUI(currentUser);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     private void loadLoginView() {
         Intent intent = new Intent(this, LoginActivity.class);
