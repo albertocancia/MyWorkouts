@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private BottomNavigationView bottomNav;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference schedeRef = db.collection("Schede");
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,67 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void perform_action(View v) {
-        TextView textViewEsercizio1, textViewEsercizio2, textViewEsercizio3 ,textViewEsercizio4,
-                textViewEsercizio5, textViewEsercizio6, textViewEsercizio7, textViewEsercizio8, textViewEsercizio9;
-        Intent intent;
-
-        switch(v.getId()){
-            case R.id.text_view_esercizio1:
-                textViewEsercizio1 = findViewById(R.id.text_view_esercizio1);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio1.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio2:
-                textViewEsercizio2 = findViewById(R.id.text_view_esercizio2);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio2.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio3:
-                textViewEsercizio3 = findViewById(R.id.text_view_esercizio3);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio3.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio4:
-                textViewEsercizio4 = findViewById(R.id.text_view_esercizio4);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio4.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio5:
-                textViewEsercizio5 = findViewById(R.id.text_view_esercizio5);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio5.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio6:
-                textViewEsercizio6 = findViewById(R.id.text_view_esercizio6);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio6.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio7:
-                textViewEsercizio7 = findViewById(R.id.text_view_esercizio7);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio7.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio8:
-                textViewEsercizio8 = findViewById(R.id.text_view_esercizio8);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio8.getText().toString());
-                startActivity(intent);
-                break;
-            case R.id.text_view_esercizio9:
-                textViewEsercizio9 = findViewById(R.id.text_view_esercizio9);
-                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
-                intent.putExtra("val_textView", textViewEsercizio9.getText().toString());
-                startActivity(intent);
-                break;
-        }
+    public void esegui(View v){
+        TextView txt = v.findViewById(R.id.child_txt);
+        Intent intent = new Intent(this, EserciziActivity.class);
+        intent.putExtra("ESERCIZIO", txt.getText());
+        startActivity(intent);
     }
 
     @Override
@@ -218,5 +167,67 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }
+/*
+* public void perform_action(View v) {
+        TextView textViewEsercizio1, textViewEsercizio2, textViewEsercizio3 ,textViewEsercizio4,
+                textViewEsercizio5, textViewEsercizio6, textViewEsercizio7, textViewEsercizio8, textViewEsercizio9;
+        Intent intent;
+
+        switch(v.getId()){
+            case R.id.text_view_esercizio1:
+                textViewEsercizio1 = findViewById(R.id.text_view_esercizio1);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio1.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio2:
+                textViewEsercizio2 = findViewById(R.id.text_view_esercizio2);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio2.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio3:
+                textViewEsercizio3 = findViewById(R.id.text_view_esercizio3);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio3.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio4:
+                textViewEsercizio4 = findViewById(R.id.text_view_esercizio4);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio4.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio5:
+                textViewEsercizio5 = findViewById(R.id.text_view_esercizio5);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio5.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio6:
+                textViewEsercizio6 = findViewById(R.id.text_view_esercizio6);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio6.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio7:
+                textViewEsercizio7 = findViewById(R.id.text_view_esercizio7);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio7.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio8:
+                textViewEsercizio8 = findViewById(R.id.text_view_esercizio8);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio8.getText().toString());
+                startActivity(intent);
+                break;
+            case R.id.text_view_esercizio9:
+                textViewEsercizio9 = findViewById(R.id.text_view_esercizio9);
+                intent = new Intent(this.getApplicationContext(), EserciziActivity.class);
+                intent.putExtra("ESERCIZIO", textViewEsercizio9.getText().toString());
+                startActivity(intent);
+                break;
+        }
+    }*/

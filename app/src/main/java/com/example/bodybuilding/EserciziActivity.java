@@ -1,5 +1,6 @@
 package com.example.bodybuilding;
 
+import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,8 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esercizi);
-        String txt = getIntent().getExtras().getString("val_textView");
+        Intent intent = getIntent();
+        String txt = intent.getStringExtra("ESERCIZIO");
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar_esercizi);
         setSupportActionBar(toolbar);
