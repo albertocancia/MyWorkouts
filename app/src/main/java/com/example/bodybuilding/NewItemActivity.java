@@ -43,6 +43,8 @@ public class NewItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        String giorno = intent.getStringExtra("GIORNO");
         setContentView(R.layout.activity_new_item);// to read the todo string
         ListView listView = findViewById(R.id.list);
 
@@ -50,6 +52,7 @@ public class NewItemActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(giorno);
 
         // fineeeeeeeeeeeeeeeeeeee
 
@@ -57,8 +60,7 @@ public class NewItemActivity extends AppCompatActivity {
         eserciziList = new ArrayList<String>();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, eserciziList);
 
-
-        /*db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -75,7 +77,7 @@ public class NewItemActivity extends AppCompatActivity {
         });
         listView.setAdapter(adapter);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         CollectionReference cr = db.collection("Schede");
 
         /*String es[] = {"Prova","prova2","prova3"};
@@ -89,7 +91,7 @@ public class NewItemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // goto back activity from here
-                startActivity(new Intent(this.getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(this.getApplicationContext(), GiorniActivity.class));
                 finish();
                 return true;
 

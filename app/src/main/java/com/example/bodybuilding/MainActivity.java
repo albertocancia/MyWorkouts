@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_new_item){
             Log.d(TAG,"action ADD item has clicked");
             // Explicit intent creation
-            Intent intent = new Intent(this.getApplicationContext(), NewItemActivity.class);
+            Intent intent = new Intent(this.getApplicationContext(), GiorniActivity.class);
             // Start as sub-activity for result
             startActivity(intent);
             return true;
