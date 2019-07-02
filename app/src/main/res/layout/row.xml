@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:text="@+id/label"
+        android:textSize="15sp"
+        android:textColor="@color/textEsercizi"
+        android:layout_alignParentLeft="true"/>
+
+    <EditText
+        android:id="@+id/txtAddress"
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:layout_toStartOf="@+id/txtRep"
+        android:text="" />
+
+    <EditText
+        android:id="@+id/txtRep"
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_toStartOf="@+id/check"
+        android:text="" />
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

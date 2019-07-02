@@ -35,8 +35,9 @@ import java.util.Map;
 
 public class NewItemActivity extends AppCompatActivity {
     final String TAG = "NewItemActivity";
-    ArrayAdapter<String> adapter;            //creazione adapter
+    ArrayAdapter<Esercizio> adapter;           //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
+    List<Esercizio> list = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -58,7 +59,7 @@ public class NewItemActivity extends AppCompatActivity {
 
 
         eserciziList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, eserciziList);
+        adapter = new EserciziAdapter(this,list);
 
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -69,7 +70,7 @@ public class NewItemActivity extends AppCompatActivity {
                     DocumentSnapshot ds;
                     while (iterator.hasNext()) {
                         ds = iterator.next();
-                        eserciziList.add((String) ds.get("Nome"));
+                        list.add(new Esercizio((String) ds.get("Nome")));
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -98,5 +99,12 @@ public class NewItemActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    private List<Esercizio> getEsercizio() {
+        list.add(new Esercizio("Linux"));
+        list.add(new Esercizio("Windows7"));
+        list.add(new Esercizio("Suse"));
+
+        return list;
     }
 }
