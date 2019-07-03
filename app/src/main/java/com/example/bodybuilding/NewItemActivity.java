@@ -44,9 +44,10 @@ public class NewItemActivity extends AppCompatActivity {
     ArrayList<String> eserciziList;  //arraylist di esercizi
     List<Esercizio> list = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     ProvaAdapter adapternuovo;
     String giorno;
-
+    List<String> giorni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +85,6 @@ public class NewItemActivity extends AppCompatActivity {
             }
         });
         listView.setAdapter(adapter);
-
-
-
     }
 
     //Per tornare indietro a GiorniActivity
@@ -103,22 +101,68 @@ public class NewItemActivity extends AppCompatActivity {
                 var = true;
                 break;
             case R.id.action_confirm:
-                List<Esercizio> nuovaLista = adapter.nuovaScheda(); //prendo la lista creata dall'utente
-                List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
-                Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
+                giorni = new ArrayList<>();
+                //recupero giorni con allenamento dal DB
 
-                while (crunchifyIterator.hasNext()) {
-                    eserciziString.add(crunchifyIterator.next().toString()); //aggiungo alla lista di string la stringa completa
-                }
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                CollectionReference cr = db.collection("Schede");
+                readData(new FirestoreCallback() {
+                    @Override
+                    public void onCallback(List<String> list) {
+                        Log.d(TAG, list.toString());
+                        //controllo per vedere se il giorno scelto è gia presente nel DB
+                        boolean controllo = false;
+                        if(!giorni.isEmpty() && giorni.contains(giorno))
+                            controllo = true;
+
+                        //se non è presente aggiungi i corrispondenti esercizi
+                        if(!controllo) {
+                            List<Esercizio> nuovaLista = adapter.nuovaScheda(); //prendo la lista creata dall'utente
+                            List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
+                            Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
+
+                            while (crunchifyIterator.hasNext()) {
+                                eserciziString.add(crunchifyIterator.next().toString()); //aggiungo alla lista di string la stringa completa
+                            }
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            CollectionReference cr = db.collection("Schede");
 
 
-                Scheda scheda = new Scheda(user.getUid(),giorno,eserciziString);
-                cr.add(scheda);
-                Intent newIntent = new Intent(this.getApplicationContext(), MainActivity.class);
-                // Start as sub-activity for result
-                startActivity(newIntent);
+                            Scheda scheda = new Scheda(user.getUid(), giorno, eserciziString);
+                            cr.add(scheda);
+                            Intent newIntent = new Intent(NewItemActivity.this, MainActivity.class);
+                            // Start as sub-activity for result
+                            startActivity(newIntent);
+                        }else{ //altrimenti messaggio di errore
+                            Toast.makeText(NewItemActivity.this, "Scheda già presente per "+giorno, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                //controllo per vedere se il giorno scelto è gia presente nel DB
+                /*boolean controllo = false;
+                    if(!giorni.isEmpty() && giorni.contains(giorno))
+                        controllo = true;
+
+                //se non è presente aggiungi i corrispondenti esercizi
+                /*if(!controllo) {
+                    List<Esercizio> nuovaLista = adapter.nuovaScheda(); //prendo la lista creata dall'utente
+                    List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
+                    Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
+
+                    while (crunchifyIterator.hasNext()) {
+                        eserciziString.add(crunchifyIterator.next().toString()); //aggiungo alla lista di string la stringa completa
+                    }
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    CollectionReference cr = db.collection("Schede");
+
+
+                    Scheda scheda = new Scheda(user.getUid(), giorno, eserciziString);
+                    cr.add(scheda);
+                    Intent newIntent = new Intent(this.getApplicationContext(), MainActivity.class);
+                    // Start as sub-activity for result
+                    startActivity(newIntent);
+                }else{ //altrimenti messaggio di errore
+                    Toast.makeText(this, "Scheda già presente per "+giorno, Toast.LENGTH_LONG).show();
+                }*/
                 var = true;
                 break;
             default:
@@ -126,6 +170,32 @@ public class NewItemActivity extends AppCompatActivity {
         }
         return var;
     }
+
+    private void readData(final FirestoreCallback firestoreCallback){
+        db.collection("Schede").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<Scheda> list = new ArrayList<>();
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Scheda s = document.toObject(Scheda.class);
+                        list.add(s);
+                        String uid = s.getUid();
+                        if(user.getUid().equals(uid)) {
+                            giorni.add(s.getGiorno());
+                        }
+                    }
+                    firestoreCallback.onCallback(giorni);
+                    //Log.d(TAG ,giorni.toString());
+                }
+            }
+        });
+    }
+
+    private interface FirestoreCallback{
+        void onCallback(List<String> list);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
