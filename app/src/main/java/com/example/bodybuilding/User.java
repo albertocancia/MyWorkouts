@@ -2,15 +2,12 @@ package com.example.bodybuilding;
 
 
 public class User {
-    private static final String TAG = "MyActivity";
-    private String email;
-    private String psw;
+    private String nome;
     private int peso;
     private int altezza;
 
-    User(String email, String psw, int peso, int altezza){
-        this.email = email;
-        this.psw = psw;
+    User(String nome, int peso, int altezza){
+        this.nome = nome;
         this.peso = peso;
         this.altezza = altezza;
     }
@@ -28,7 +25,11 @@ public class User {
     }
 
     public int getPeso(){
-        return this.altezza;
+        return this.peso;
+    }
+
+    public String getNome(){
+        return this.nome;
     }
 
 }
