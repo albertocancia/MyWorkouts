@@ -59,11 +59,11 @@ public class SchedeFragment extends Fragment {
         listHash = new HashMap<>();
         listDataHeader = new ArrayList<>();
 
-        listDataHeader.add("Lunedi");
-        listDataHeader.add("Martedi");
-        listDataHeader.add("Mercoledi");
-        listDataHeader.add("Giovedi");
-        listDataHeader.add("Venerdi");
+        listDataHeader.add("Lunedì");
+        listDataHeader.add("Martedì");
+        listDataHeader.add("Mercoledì");
+        listDataHeader.add("Giovedì");
+        listDataHeader.add("Venerdì");
         listDataHeader.add("Sabato");
         listDataHeader.add("Domenica");
 
