@@ -19,4 +19,5 @@
     <string name="signup_error_title">Errore titolo</string>
     <string name="sign_out">Disconnettiti</string>
     <string name="input_insert">Inserisci</string>
+    <string name="add_event">Aggiungi evento</string>
 </resources>

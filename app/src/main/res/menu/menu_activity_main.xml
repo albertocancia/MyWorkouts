@@ -13,6 +13,11 @@
         android:icon="@drawable/ic_dieta"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_add_calendar"
+        android:title="add_calendar"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_signout"
         android:title="sign_out"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
