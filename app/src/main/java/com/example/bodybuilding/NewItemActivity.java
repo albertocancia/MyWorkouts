@@ -125,14 +125,17 @@ public class NewItemActivity extends AppCompatActivity {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             CollectionReference cr = db.collection("Schede");
 
-
                             Scheda scheda = new Scheda(user.getUid(), giorno, eserciziString);
                             cr.add(scheda);
+                            //Intent intent = new Intent();
+                            //setResult(RESULT_OK, intent);
+                            finish();
                             Intent newIntent = new Intent(NewItemActivity.this, MainActivity.class);
                             // Start as sub-activity for result
                             startActivity(newIntent);
                         }else{ //altrimenti messaggio di errore
-                            Toast.makeText(NewItemActivity.this, "Scheda già presente per "+giorno, Toast.LENGTH_LONG).show();
+                            Toast.makeText(NewItemActivity.this, "Scheda già presente per "+giorno,
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });
