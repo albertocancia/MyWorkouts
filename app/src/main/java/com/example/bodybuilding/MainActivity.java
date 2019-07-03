@@ -61,9 +61,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void esegui(View v){
         TextView txt = v.findViewById(R.id.child_txt);
-        Intent intent = new Intent(this, EserciziActivity.class);
-        intent.putExtra("ESERCIZIO", txt.getText());
-        startActivity(intent);
+        String esercizio = (String) txt.getText();
+        if(!esercizio.equals("")) {
+            Intent intent = new Intent(this, EserciziActivity.class);
+            intent.putExtra("ESERCIZIO", esercizio);
+            startActivity(intent);
+        }
     }
 
     @Override

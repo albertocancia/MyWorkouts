@@ -88,12 +88,15 @@ public class NewItemActivity extends AppCompatActivity {
         cr.add(scheda);*/
     }
 
+    //Per tornare indietro a GiorniActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // goto back activity from here
-                startActivity(new Intent(this.getApplicationContext(), GiorniActivity.class));
+                Intent intent = new Intent();
+                //intent.putExtra("HOME", 1);
+                setResult(RESULT_OK, intent);
                 finish();
                 return true;
 

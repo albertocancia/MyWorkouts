@@ -48,13 +48,18 @@ public class GiorniActivity extends AppCompatActivity {
         });
     }
 
+    //Per tornare indietro a MainActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // goto back activity from here
-                startActivity(new Intent(this.getApplicationContext(), MainActivity.class));
+                Intent intent = new Intent();
+                //intent.putExtra("HOME", 1);
+                setResult(RESULT_OK, intent);
                 finish();
                 return true;
+                // goto back activity from here
+                //startActivity(new Intent(this.getApplicationContext(), MainActivity.class));
 
             default:
                 return super.onOptionsItemSelected(item);

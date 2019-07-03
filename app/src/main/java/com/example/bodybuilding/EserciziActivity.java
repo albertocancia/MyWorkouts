@@ -5,6 +5,7 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -26,8 +27,9 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
         toolbar = (Toolbar) findViewById(R.id.tool_bar_esercizi);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(txt);
-        //EserciziActivity.this.setTitle(txt);
 
         button_start = findViewById(R.id.button_start);
         button_pause = findViewById(R.id.button_pause);
@@ -40,6 +42,23 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
         button_start.setOnClickListener(this);
         button_pause.setOnClickListener(this);
         button_reset.setOnClickListener(this);
+    }
+
+    //Per tornare indietro a SchedeFragment()
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // goto back activity from here
+                Intent intent = new Intent();
+                //intent.putExtra("HOME", 1);
+                setResult(RESULT_OK, intent);
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void onClick(View v){
