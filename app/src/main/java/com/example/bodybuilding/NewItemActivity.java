@@ -103,24 +103,22 @@ public class NewItemActivity extends AppCompatActivity {
                 var = true;
                 break;
             case R.id.action_confirm:
-                List<Esercizio> nuovaLista = adapter.nuovaScheda();
-                List<String> eserciziString = new ArrayList<String>();
-                int i=0;
+                List<Esercizio> nuovaLista = adapter.nuovaScheda(); //prendo la lista creata dall'utente
+                List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
                 Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
-                String tempN;
-                String tempS;
-                String tempR;
+
                 while (crunchifyIterator.hasNext()) {
-                    tempN = crunchifyIterator.next().getName();
-                    tempS = ""+crunchifyIterator.next().getSerie();
-                    //tempR = ""+crunchifyIterator.next().getRep();
-                    eserciziString.add(tempN+"_"+tempS+"_");
+                    eserciziString.add(crunchifyIterator.next().toString()); //aggiungo alla lista di string la stringa completa
                 }
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 CollectionReference cr = db.collection("Schede");
 
+
                 Scheda scheda = new Scheda(user.getUid(),giorno,eserciziString);
                 cr.add(scheda);
+                Intent newIntent = new Intent(this.getApplicationContext(), MainActivity.class);
+                // Start as sub-activity for result
+                startActivity(newIntent);
                 var = true;
                 break;
             default:

@@ -45,4 +45,10 @@ public class Esercizio {
     public void setSerie(int a){
         serie = a;
     }
+
+    public String toString(){
+        String s;
+        s = nome+"_"+serie+"_"+rep;
+        return s;
+    }
 }

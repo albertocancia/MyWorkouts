@@ -64,21 +64,10 @@ public class ProvaAdapter extends ArrayAdapter<Esercizio> {
         holder.cbShowName.setChecked(false);
         holder.edSerie.setVisibility(View.VISIBLE);
         holder.edRep.setVisibility(View.VISIBLE);
-        /*if (holder.cbShowName.isChecked()) {
-            holder.edSerie.setVisibility(View.VISIBLE);
-            holder.edRep.setVisibility(View.VISIBLE);
-        } else {
-            holder.edSerie.setVisibility(View.INVISIBLE);
-            holder.edRep.setVisibility(View.INVISIBLE);
-        }*/
-        //Using setOnclickListener not setOnCheckedChangeListener
         holder.cbShowName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (holder.cbShowName.isChecked()) {
-                    //arrayPeople.get(position).setShowName(true);
-                    //holder.edSerie.setVisibility(View.VISIBLE);
-                    //holder.edRep.setVisibility(View.VISIBLE);
                     String nomeEs = holder.txtEsercizio.getText().toString();
                     int serie = Integer.parseInt(holder.edSerie.getText().toString());
                     int rep = Integer.parseInt(holder.edRep.getText().toString());
@@ -99,9 +88,24 @@ public class ProvaAdapter extends ArrayAdapter<Esercizio> {
 //Fill EditText with the value you have in data source
         holder.txtEsercizio.setText(esercizio.getName());
         holder.edSerie.setId(position);
+        //holder.edRep.setId(position);
 
 //we need to update adapter once we finish with editing
         holder.edSerie.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (!hasFocus) {
+                    /*final int position = v.getId();
+                    final EditText caption = (EditText) v;
+                    listEsercizi.get(position).setRep(Integer.parseInt(caption.getText().toString()));
+                    Toast.makeText(mContext,""+listEsercizi.get(position).getRep(),Toast.LENGTH_SHORT).show();*/
+                }
+
+            }
+
+        });
+        holder.edRep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             public void onFocusChange(View v, boolean hasFocus) {
 
