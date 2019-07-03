@@ -20,14 +20,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="Serie"
-            android:textSize="32dp" />
+            android:text="Serie: "
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textSize="22dp" />
         <TextView
             android:id="@+id/txt_serie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="32dp" />
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:textSize="22dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -39,14 +44,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:text="Ripetizioni"
-            android:textSize="32dp" />
+            android:text="Ripetizioni: "
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"
+            android:textSize="22dp" />
         <TextView
             android:id="@+id/txt_ripetizioni"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="32dp" />
+            android:textColor="@color/black"
+            android:textSize="22dp" />
     </LinearLayout>
     <LinearLayout
     android:layout_width="wrap_content"
@@ -57,14 +65,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:text="Peso"
-        android:textSize="32dp" />
+        android:text="Peso: "
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/black"
+        android:textSize="22dp" />
     <TextView
         android:id="@+id/txt_peso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="32dp" />
+        android:textColor="@color/black"
+        android:textSize="22dp" />
 </LinearLayout>
 
     <LinearLayout

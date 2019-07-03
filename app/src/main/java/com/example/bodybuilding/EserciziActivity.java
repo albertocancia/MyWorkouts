@@ -9,6 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.util.StringTokenizer;
 
 public class EserciziActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
@@ -21,8 +26,20 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_esercizi);
+        TextView txtSerie = (TextView)findViewById(R.id.txt_serie);
+        TextView txtRep = (TextView)findViewById(R.id.txt_ripetizioni);
         Intent intent = getIntent();
         String txt = intent.getStringExtra("ESERCIZIO");
+        String serie="", rep="";
+        StringTokenizer stToken = new StringTokenizer(txt,"_");
+        if(stToken.hasMoreTokens())
+            txt = stToken.nextToken();
+        if(stToken.hasMoreTokens())
+            serie = stToken.nextToken();
+        if(stToken.hasMoreTokens())
+            rep = stToken.nextToken();
+        txtSerie.setText(serie);
+        txtRep.setText(rep);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar_esercizi);
         setSupportActionBar(toolbar);
