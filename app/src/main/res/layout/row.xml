@@ -16,11 +16,12 @@
         android:layout_alignParentLeft="true"/>
 
     <EditText
-        android:id="@+id/txtAddress"
+        android:id="@+id/txtSerie"
         android:layout_width="150px"
         android:layout_height="wrap_content"
         android:layout_marginEnd="6dp"
         android:layout_toStartOf="@+id/txtRep"
+        android:inputType="text|number"
         android:text="" />
 
     <EditText
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_toStartOf="@+id/check"
+        android:inputType="text|number"
         android:text="" />
     <CheckBox
         android:id="@+id/check"

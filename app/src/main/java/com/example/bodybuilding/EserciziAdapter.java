@@ -13,12 +13,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EserciziAdapter extends ArrayAdapter<Esercizio> implements TextWatcher {
 
     private final List<Esercizio> list;
     private final Activity context;
     int listPosititon;
+    ViewHolder viewHolder = null;
 
     public EserciziAdapter(Activity context, List<Esercizio> list) {
         super(context, R.layout.row, list);
@@ -35,7 +37,7 @@ public class EserciziAdapter extends ArrayAdapter<Esercizio> implements TextWatc
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         listPosititon = position;
-        ViewHolder viewHolder = null;
+
         if (convertView == null) {
             LayoutInflater inflator = context.getLayoutInflater();
             convertView = inflator.inflate(R.layout.row, null);
@@ -44,7 +46,7 @@ public class EserciziAdapter extends ArrayAdapter<Esercizio> implements TextWatc
             viewHolder.checkbox = (CheckBox) convertView
                     .findViewById(R.id.check);
             viewHolder.address = (EditText) convertView
-                    .findViewById(R.id.txtAddress);
+                    .findViewById(R.id.txtSerie);
             viewHolder.checkbox
                     .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -62,7 +64,7 @@ public class EserciziAdapter extends ArrayAdapter<Esercizio> implements TextWatc
             convertView.setTag(viewHolder);
             convertView.setTag(R.id.label, viewHolder.text);
             convertView.setTag(R.id.check, viewHolder.checkbox);
-            convertView.setTag(R.id.txtAddress, viewHolder.address);
+            convertView.setTag(R.id.txtSerie, viewHolder.address);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }

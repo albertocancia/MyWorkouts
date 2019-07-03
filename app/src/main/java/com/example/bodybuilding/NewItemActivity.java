@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,17 +40,19 @@ import java.util.Map;
 
 public class NewItemActivity extends AppCompatActivity {
     final String TAG = "NewItemActivity";
-    ArrayAdapter<Esercizio> adapter;           //creazione adapter
+    ProvaAdapter adapter;           //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
     List<Esercizio> list = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ProvaAdapter adapternuovo;
+    String giorno;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String giorno = intent.getStringExtra("GIORNO");
+        giorno = intent.getStringExtra("GIORNO");
         setContentView(R.layout.activity_new_item);// to read the todo string
         ListView listView = findViewById(R.id.list);
 
@@ -60,7 +66,7 @@ public class NewItemActivity extends AppCompatActivity {
 
 
         eserciziList = new ArrayList<String>();
-        adapter = new EserciziAdapter(this,list);
+        adapter = new ProvaAdapter(this,list);
 
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -79,18 +85,14 @@ public class NewItemActivity extends AppCompatActivity {
         });
         listView.setAdapter(adapter);
 
-        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference cr = db.collection("Schede");
 
-        /*String es[] = {"Prova","prova2","prova3"};
-        List<String> esercizi = Arrays.asList(es);
-        Scheda scheda = new Scheda(user.getUid(),"Lunedì",esercizi);
-        cr.add(scheda);*/
+
     }
 
     //Per tornare indietro a GiorniActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        boolean var;
         switch (item.getItemId()) {
             case android.R.id.home:
                 // goto back activity from here
@@ -98,17 +100,38 @@ public class NewItemActivity extends AppCompatActivity {
                 //intent.putExtra("HOME", 1);
                 setResult(RESULT_OK, intent);
                 finish();
-                return true;
+                var = true;
+                break;
+            case R.id.action_confirm:
+                List<Esercizio> nuovaLista = adapter.nuovaScheda();
+                List<String> eserciziString = new ArrayList<String>();
+                int i=0;
+                Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
+                String tempN;
+                String tempS;
+                String tempR;
+                while (crunchifyIterator.hasNext()) {
+                    tempN = crunchifyIterator.next().getName();
+                    tempS = ""+crunchifyIterator.next().getSerie();
+                    //tempR = ""+crunchifyIterator.next().getRep();
+                    eserciziString.add(tempN+"_"+tempS+"_");
+                }
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                CollectionReference cr = db.collection("Schede");
 
+                Scheda scheda = new Scheda(user.getUid(),giorno,eserciziString);
+                cr.add(scheda);
+                var = true;
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                var = super.onOptionsItemSelected(item);
         }
+        return var;
     }
-    private List<Esercizio> getEsercizio() {
-        list.add(new Esercizio("Linux"));
-        list.add(new Esercizio("Windows7"));
-        list.add(new Esercizio("Suse"));
-
-        return list;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.esercizi_menu, menu);
+        return true;
     }
 }
