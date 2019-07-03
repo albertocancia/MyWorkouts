@@ -47,7 +47,7 @@ public class NewItemActivity extends AppCompatActivity {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     ProvaAdapter adapternuovo;
     String giorno;
-    List<String> giorni;
+    List<String> giorni;    //lista usata per sapere quali giorni hanno gia un allenamento
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,33 +136,6 @@ public class NewItemActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-                //controllo per vedere se il giorno scelto è gia presente nel DB
-                /*boolean controllo = false;
-                    if(!giorni.isEmpty() && giorni.contains(giorno))
-                        controllo = true;
-
-                //se non è presente aggiungi i corrispondenti esercizi
-                /*if(!controllo) {
-                    List<Esercizio> nuovaLista = adapter.nuovaScheda(); //prendo la lista creata dall'utente
-                    List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
-                    Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
-
-                    while (crunchifyIterator.hasNext()) {
-                        eserciziString.add(crunchifyIterator.next().toString()); //aggiungo alla lista di string la stringa completa
-                    }
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    CollectionReference cr = db.collection("Schede");
-
-
-                    Scheda scheda = new Scheda(user.getUid(), giorno, eserciziString);
-                    cr.add(scheda);
-                    Intent newIntent = new Intent(this.getApplicationContext(), MainActivity.class);
-                    // Start as sub-activity for result
-                    startActivity(newIntent);
-                }else{ //altrimenti messaggio di errore
-                    Toast.makeText(this, "Scheda già presente per "+giorno, Toast.LENGTH_LONG).show();
-                }*/
                 var = true;
                 break;
             default:
@@ -171,6 +144,8 @@ public class NewItemActivity extends AppCompatActivity {
         return var;
     }
 
+    //prendo i dati dal db e richiamo firestoreCallback.onCallback(giorni)
+    //onCallback aggiunge gli esercizi o mostra il messaggio di errore
     private void readData(final FirestoreCallback firestoreCallback){
         db.collection("Schede").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -186,12 +161,13 @@ public class NewItemActivity extends AppCompatActivity {
                         }
                     }
                     firestoreCallback.onCallback(giorni);
-                    //Log.d(TAG ,giorni.toString());
                 }
             }
         });
     }
 
+    //interfaccia utilizzata per usare i dati recuperati
+    //dal db al di fuori di onComplete
     private interface FirestoreCallback{
         void onCallback(List<String> list);
     }
