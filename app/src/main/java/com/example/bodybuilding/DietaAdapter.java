@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class DietaAdapter extends ArrayAdapter<Pasto> {
 
     LayoutInflater inflater;
     Map<String, Object> pastiMap;
-
+    List<Pasto> listPastiMap;
     List<Pasto> listPasti;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -60,6 +61,7 @@ public class DietaAdapter extends ArrayAdapter<Pasto> {
         this.mContext = context;
         this.listPasti = listPasti;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        listPastiMap = listPasti;
 
     }
 
@@ -74,17 +76,12 @@ public class DietaAdapter extends ArrayAdapter<Pasto> {
             holder.txtPasto = (TextView) convertView.findViewById(R.id.label);
             holder.cbShowName = (CheckBox) convertView.findViewById(R.id.check);
             convertView.setTag(holder);
+
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        pastiMap = new HashMap<>();
-        Iterator<Pasto> crunchifyIterator = listPasti.iterator();
-        Pasto temp;
-        while (crunchifyIterator.hasNext()) {
-            temp = crunchifyIterator.next();
-            pastiMap.put(temp.getName(),temp.getActive());
-        }
 
+        pastiMap = returnMap(listPastiMap);
         Pasto pasto = listPasti.get(position);
         holder.cbShowName.setChecked(pasto.getActive());
         if(pasto.getActive()){
@@ -98,9 +95,22 @@ public class DietaAdapter extends ArrayAdapter<Pasto> {
                     String nomePasto = holder.txtPasto.getText().toString();
                     holder.txtPasto.setPaintFlags(holder.txtPasto.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.txtPasto.setTextColor(Color.GRAY);
+                    Iterator<Pasto> it = listPastiMap.iterator();
+                    Pasto temp;
+                    String tempS;
+                    List<Pasto> tempList = new ArrayList<>();
+                    while(it.hasNext()){
+                        temp = it.next();
+                        tempS = temp.getName();
+                        if(tempS.equals(nomePasto)){
+                            tempList.add(new Pasto(nomePasto,true));
+                        }else
+                            tempList.add(temp);
+                    }
+                    listPastiMap = tempList;
                     pastiMap.replace(nomePasto,true);
                     db.collection("Dieta").document(user.getUid())
-                            .set(pastiMap)
+                            .update(pastiMap)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -120,9 +130,22 @@ public class DietaAdapter extends ArrayAdapter<Pasto> {
                     String nomePasto = holder.txtPasto.getText().toString();
                     holder.txtPasto.setPaintFlags(0);
                     holder.txtPasto.setTextColor(Color.BLACK);
+                    Iterator<Pasto> it = listPastiMap.iterator();
+                    Pasto temp;
+                    String tempS;
+                    List<Pasto> tempList = new ArrayList<>();
+                    while(it.hasNext()){
+                        temp = it.next();
+                        tempS = temp.getName();
+                        if(tempS.equals(nomePasto)){
+                            tempList.add(new Pasto(nomePasto,false));
+                        }else
+                            tempList.add(temp);
+                    }
+                    listPastiMap = tempList;
                     pastiMap.replace(nomePasto,false);
                     db.collection("Dieta").document(user.getUid())
-                            .set(pastiMap)
+                            .update(pastiMap)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -140,7 +163,6 @@ public class DietaAdapter extends ArrayAdapter<Pasto> {
             }
         });
 
-//Fill EditText with the value you have in data source
         holder.txtPasto.setText(pasto.getName());
 
         return convertView;
@@ -162,6 +184,18 @@ public class DietaAdapter extends ArrayAdapter<Pasto> {
 
     public List<Esercizio> nuovaScheda(){
         return nuovaLista;
+    }
+
+    public Map<String,Object> returnMap(List<Pasto> listTemp){
+        Map<String,Object> mapRet = new HashMap<>();
+        Iterator<Pasto> crunchifyIterator = listTemp.iterator();
+        Pasto temp;
+        while(crunchifyIterator.hasNext()) {
+            temp = crunchifyIterator.next();
+            mapRet.put(temp.getName(), temp.getActive());
+            Log.w("Prova pasti", "Pasto: " + temp.getName());
+        }
+        return mapRet;
     }
 
 }
