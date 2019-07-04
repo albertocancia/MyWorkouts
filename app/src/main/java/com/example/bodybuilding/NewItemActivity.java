@@ -40,12 +40,11 @@ import java.util.Map;
 
 public class NewItemActivity extends AppCompatActivity {
     final String TAG = "NewItemActivity";
-    ProvaAdapter adapter;           //creazione adapter
+    SchedaAdapter adapter;           //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
     List<Esercizio> list = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    ProvaAdapter adapternuovo;
     String giorno;
     List<String> giorni;    //lista usata per sapere quali giorni hanno gia un allenamento
 
@@ -67,7 +66,7 @@ public class NewItemActivity extends AppCompatActivity {
 
 
         eserciziList = new ArrayList<String>();
-        adapter = new ProvaAdapter(this,list);
+        adapter = new SchedaAdapter(this,list);
 
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

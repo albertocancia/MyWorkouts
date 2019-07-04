@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
     protected EditText passwordEditText;
@@ -71,6 +74,16 @@ public class SignupActivity extends AppCompatActivity {
                                 CollectionReference cr = db.collection("Utenti");
                                 User utente = new User(nome,peso,altezza);
                                 cr.document(user.getUid()).set(utente);
+                                cr = db.collection("Dieta");
+                                Map<String, Object> pasto = new HashMap<>();
+                                pasto.put("Colazione", false);
+                                pasto.put("Spuntino", false);
+                                pasto.put("Pranzo", false);
+                                pasto.put("Spuntino2", false);
+                                pasto.put("Cena", false);
+                                pasto.put("Spuntino3", false);
+
+                                cr.document(user.getUid()).set(pasto);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);

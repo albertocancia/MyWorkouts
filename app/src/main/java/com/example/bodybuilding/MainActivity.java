@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             intent.setType("vnd.android.cursor.item/event");
             intent.putExtra("beginTime", calendarEvent.getTimeInMillis());
             intent.putExtra("endTime", calendarEvent.getTimeInMillis() + 60 * 60 * 1000);
-            intent.putExtra("title", "");
+            intent.putExtra("title", "Allenamento");
             intent.putExtra("allDay", false);
             startActivity(intent);
             finish();

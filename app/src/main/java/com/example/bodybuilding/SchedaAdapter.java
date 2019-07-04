@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Latitude on 02/10/2016.
  */
 
-public class ProvaAdapter extends ArrayAdapter<Esercizio> {
+public class SchedaAdapter extends ArrayAdapter<Esercizio> {
 
     Activity mContext;
 
@@ -33,7 +33,7 @@ public class ProvaAdapter extends ArrayAdapter<Esercizio> {
     private List<Esercizio> nuovaLista = new ArrayList<Esercizio>();
 
 
-    public ProvaAdapter(Activity context, List<Esercizio> listEsercizi) {
+    public SchedaAdapter(Activity context, List<Esercizio> listEsercizi) {
 
         super(context, R.layout.row, listEsercizi);
 
