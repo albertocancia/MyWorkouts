@@ -61,6 +61,10 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
         button_reset.setOnClickListener(this);
     }
 
+    protected void onResume(){
+        super.onResume();
+    }
+
     //Per tornare indietro a SchedeFragment()
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

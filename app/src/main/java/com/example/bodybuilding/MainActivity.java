@@ -76,12 +76,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void eliminaScheda(View v){
-        TextView txtGiorno = v.findViewById(R.id.parent_txt);
-        String giorno = txtGiorno.getText().toString();
-        Toast.makeText(this, ""+giorno, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

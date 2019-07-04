@@ -1,6 +1,7 @@
 package com.example.bodybuilding;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.Image;
 import android.support.annotation.NonNull;
@@ -112,6 +113,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                         }
                     }
                 });
+                context.startActivity(new Intent(new Intent(context, MainActivity.class)));
+                Toast.makeText(context, "Scheda eliminata per il giorno: "+giorno,
+                        Toast.LENGTH_LONG).show();
             }
         });
 
