@@ -2,20 +2,41 @@ package com.example.bodybuilding;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.media.Image;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listHashMap;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference schedeRef = db.collection("Schede");
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
         this.context = context;
@@ -66,9 +87,34 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.parent_layout,null);
         }
-        TextView lblListHeader = (TextView)view.findViewById(R.id.parent_txt);
+        final TextView lblListHeader = (TextView)view.findViewById(R.id.parent_txt);
+        ImageView imgView = (ImageView) view.findViewById(R.id.img_delete);
+
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
+
+        imgView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String giorno = lblListHeader.getText().toString();
+
+                Query query = schedeRef.whereEqualTo("giorno", giorno).whereEqualTo("uid", user.getUid());
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                schedeRef.document(document.getId()).delete();
+                            }
+                        } else {
+                            Log.d("ExListAdapter", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+            }
+        });
+
         return view;
     }
 

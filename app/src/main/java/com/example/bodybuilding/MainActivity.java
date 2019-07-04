@@ -16,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -72,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void eliminaScheda(View v){
+        TextView txtGiorno = v.findViewById(R.id.parent_txt);
+        String giorno = txtGiorno.getText().toString();
+        Toast.makeText(this, ""+giorno, Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -89,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
             // Start as sub-activity for result
             startActivity(intent);
             return true;
-        }else if (id == R.id.action_new_diet) {
+        /*}else if (id == R.id.action_new_diet) {
             Log.d(TAG,"action ADD diet has clicked");
             // Explicit intent creation
             Intent intent = new Intent(this.getApplicationContext(), NewDietActivity.class);
             // Start as sub-activity for result
             startActivity(intent);
-            return true;
+            return true;*/
         } else if (id == R.id.action_add_calendar) {
             Log.d(TAG,"action AddCalendar clicked");
             Calendar calendarEvent = Calendar.getInstance();

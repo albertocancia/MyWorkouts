@@ -7,11 +7,11 @@
         android:title="new_item"
         android:icon="@drawable/ic_scheda"
         app:showAsAction="always" />
-    <item
+    <!-- <item
         android:id="@+id/action_new_diet"
         android:title="new_diet"
         android:icon="@drawable/ic_dieta"
-        app:showAsAction="always" />
+        app:showAsAction="always" /> -->
     <item
         android:id="@+id/action_add_calendar"
         android:title="add_calendar"
