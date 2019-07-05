@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -124,18 +127,52 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+        final ViewHolder holder;
         final String childText = (String)getChild(i,i1);
-        if(view == null)
-        {
-            LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.child_layout,null);
-        }
 
-        TextView txtListChild = (TextView)view.findViewById(R.id.child_txt);
-        txtListChild.setText(childText);
+        LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.child_layout,null);
+        // ++++++++++++++++ NUOVO ++++++++++++++++++++++++++++++++
+        StringTokenizer stToken = new StringTokenizer(childText,"_");
+        String nomeEs ="", numSerie ="", numRep = "";
+        if(stToken.hasMoreTokens())
+            nomeEs = stToken.nextToken();
+        if(stToken.hasMoreTokens())
+            numSerie = stToken.nextToken();
+        if(stToken.hasMoreTokens())
+            numRep = stToken.nextToken();
+
+        holder = new ViewHolder();
+        holder.txtEsercizio = view.findViewById(R.id.child_txt);
+        holder.txtSerie = view.findViewById(R.id.serie_txt1);
+        holder.txtRipetizioni = view.findViewById(R.id.rep_txt);
+        holder.txtEsercizio.setText(nomeEs);
+        holder.txtSerie.setText(numSerie);
+        holder.txtRipetizioni.setText(numRep);
+        // +++++++++++++++++ FINE NUOVO ++++++++++++++++++++++++++
+        TextView txt = view.findViewById(R.id.child_txt);
+        holder.txtEsercizio.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String esercizio = holder.txtEsercizio.getText().toString();
+                String serie = holder.txtSerie.getText().toString();
+                String ripetizioni = holder.txtRipetizioni.getText().toString();
+                if(!esercizio.equals("")) {
+                    Intent intent = new Intent(context, EserciziActivity.class);
+                    intent.putExtra("ESERCIZIO", esercizio);
+                    intent.putExtra("SERIE", serie);
+                    intent.putExtra("RIPETIZIONI", ripetizioni);
+                    context.startActivity(intent);
+                }
+            }
+        });
         return view;
     }
+    static class ViewHolder {
+        TextView txtEsercizio, txtRipetizioni, txtSerie;
 
+    }
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;

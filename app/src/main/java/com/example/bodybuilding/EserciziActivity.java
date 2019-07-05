@@ -30,14 +30,9 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
         TextView txtRep = (TextView)findViewById(R.id.txt_ripetizioni);
         Intent intent = getIntent();
         String txt = intent.getStringExtra("ESERCIZIO");
-        String serie="", rep="";
-        StringTokenizer stToken = new StringTokenizer(txt,"_");
-        if(stToken.hasMoreTokens())
-            txt = stToken.nextToken();
-        if(stToken.hasMoreTokens())
-            serie = stToken.nextToken();
-        if(stToken.hasMoreTokens())
-            rep = stToken.nextToken();
+        String serie = intent.getStringExtra("SERIE");
+        String rep = intent.getStringExtra("RIPETIZIONI");
+
         txtSerie.setText(serie);
         txtRep.setText(rep);
 

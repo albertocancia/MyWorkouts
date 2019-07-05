@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.w3c.dom.Text;
 
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,16 +65,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
 
-    }
-
-    public void esegui(View v){
-        TextView txt = v.findViewById(R.id.child_txt);
-        String esercizio = (String) txt.getText();
-        if(!esercizio.equals("")) {
-            Intent intent = new Intent(this, EserciziActivity.class);
-            intent.putExtra("ESERCIZIO", esercizio);
-            startActivity(intent);
-        }
     }
 
     @Override
