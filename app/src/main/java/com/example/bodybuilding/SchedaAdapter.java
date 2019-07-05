@@ -54,6 +54,7 @@ public class SchedaAdapter extends ArrayAdapter<Esercizio> {
             holder.txtEsercizio = (TextView) convertView.findViewById(R.id.label);
             holder.edSerie = (EditText) convertView.findViewById(R.id.txtSerie);
             holder.edRep = (EditText) convertView.findViewById(R.id.txtRep);
+            holder.edPeso = (EditText) convertView.findViewById(R.id.txtPeso);
             holder.cbShowName = (CheckBox) convertView.findViewById(R.id.check);
             convertView.setTag(holder);
         } else {
@@ -64,6 +65,7 @@ public class SchedaAdapter extends ArrayAdapter<Esercizio> {
         holder.cbShowName.setChecked(false);
         holder.edSerie.setVisibility(View.VISIBLE);
         holder.edRep.setVisibility(View.VISIBLE);
+        holder.edPeso.setVisibility(View.VISIBLE);
         holder.cbShowName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,9 +73,10 @@ public class SchedaAdapter extends ArrayAdapter<Esercizio> {
                     String nomeEs = holder.txtEsercizio.getText().toString();
                     int serie = Integer.parseInt(holder.edSerie.getText().toString());
                     int rep = Integer.parseInt(holder.edRep.getText().toString());
-                    nuovaLista.add(new Esercizio(nomeEs,serie,rep));
+                    int peso = Integer.parseInt(holder.edPeso.getText().toString());
+                    nuovaLista.add(new Esercizio(nomeEs,serie,rep,peso));
 
-                    Toast.makeText(mContext,"Serie: "+serie+" Rep: "+rep,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"Serie: "+serie+" Rep: "+rep+"Peso: "+peso,Toast.LENGTH_SHORT).show();
 
                 } else {
                     //arrayPeople.get(position).setShowName(false);
@@ -88,7 +91,8 @@ public class SchedaAdapter extends ArrayAdapter<Esercizio> {
 //Fill EditText with the value you have in data source
         holder.txtEsercizio.setText(esercizio.getName());
         holder.edSerie.setId(position);
-        //holder.edRep.setId(position);
+        holder.edRep.setId(position);
+        holder.edPeso.setId(position);
 
 //we need to update adapter once we finish with editing
         holder.edSerie.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -134,7 +138,7 @@ public class SchedaAdapter extends ArrayAdapter<Esercizio> {
 
     static class ViewHolder {
         TextView txtEsercizio;
-        EditText edSerie, edRep;
+        EditText edSerie, edRep, edPeso;
         CheckBox cbShowName;
     }
 

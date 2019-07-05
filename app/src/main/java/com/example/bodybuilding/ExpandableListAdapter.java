@@ -134,21 +134,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         view = inflater.inflate(R.layout.child_layout,null);
         // ++++++++++++++++ NUOVO ++++++++++++++++++++++++++++++++
         StringTokenizer stToken = new StringTokenizer(childText,"_");
-        String nomeEs ="", numSerie ="", numRep = "";
+        String nomeEs ="", numSerie ="", numRep = "", peso = "";
         if(stToken.hasMoreTokens())
             nomeEs = stToken.nextToken();
         if(stToken.hasMoreTokens())
             numSerie = stToken.nextToken();
         if(stToken.hasMoreTokens())
             numRep = stToken.nextToken();
+        if(stToken.hasMoreTokens())
+            peso = stToken.nextToken();
 
         holder = new ViewHolder();
         holder.txtEsercizio = view.findViewById(R.id.child_txt);
         holder.txtSerie = view.findViewById(R.id.serie_txt1);
         holder.txtRipetizioni = view.findViewById(R.id.rep_txt);
+        holder.txtPeso = view.findViewById(R.id.peso_txt);
         holder.txtEsercizio.setText(nomeEs);
         holder.txtSerie.setText(numSerie);
         holder.txtRipetizioni.setText(numRep);
+        holder.txtPeso.setText(peso);
         // +++++++++++++++++ FINE NUOVO ++++++++++++++++++++++++++
         TextView txt = view.findViewById(R.id.child_txt);
         holder.txtEsercizio.setOnClickListener(new View.OnClickListener() {
@@ -158,11 +162,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 String esercizio = holder.txtEsercizio.getText().toString();
                 String serie = holder.txtSerie.getText().toString();
                 String ripetizioni = holder.txtRipetizioni.getText().toString();
+                String pesoS = holder.txtPeso.getText().toString();
                 if(!esercizio.equals("")) {
                     Intent intent = new Intent(context, EserciziActivity.class);
                     intent.putExtra("ESERCIZIO", esercizio);
                     intent.putExtra("SERIE", serie);
                     intent.putExtra("RIPETIZIONI", ripetizioni);
+                    intent.putExtra("PESO",pesoS);
                     context.startActivity(intent);
                 }
             }
@@ -170,11 +176,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return view;
     }
     static class ViewHolder {
-        TextView txtEsercizio, txtRipetizioni, txtSerie;
+        TextView txtEsercizio, txtRipetizioni, txtSerie, txtPeso;
 
     }
     @Override
     public boolean isChildSelectable(int i, int i1) {
         return true;
     }
+
+
 }

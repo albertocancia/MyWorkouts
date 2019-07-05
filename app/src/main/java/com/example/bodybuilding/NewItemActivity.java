@@ -43,6 +43,7 @@ public class NewItemActivity extends AppCompatActivity {
     SchedaAdapter adapter;           //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
     List<Esercizio> list = new ArrayList<Esercizio>();
+    List<Esercizio> tempList = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String giorno;
@@ -77,9 +78,29 @@ public class NewItemActivity extends AppCompatActivity {
                     DocumentSnapshot ds;
                     while (iterator.hasNext()) {
                         ds = iterator.next();
-                        list.add(new Esercizio((String) ds.get("Nome")));
+                        tempList.add(new Esercizio((String) ds.get("Nome"),(String)ds.get("Categoria")));
+
                         adapter.notifyDataSetChanged();
                     }
+                    Iterator<Esercizio> iteratorLista = tempList.iterator();
+                    List<Esercizio> tempPetto = new ArrayList<Esercizio>();
+                    List<Esercizio> tempGambe = new ArrayList<Esercizio>();
+                    List<Esercizio> tempDorsali = new ArrayList<Esercizio>();
+                    Esercizio tempEsercizio;
+                    while(iteratorLista.hasNext()){
+                        tempEsercizio = iteratorLista.next();
+                        if(tempEsercizio.getCategoria().equals("Petto")){
+                            tempPetto.add(tempEsercizio);
+                        }else if(tempEsercizio.getCategoria().equals("Gambe")){
+                            tempGambe.add(tempEsercizio);
+                        }else if(tempEsercizio.getCategoria().equals("Dorsali")){
+                            tempDorsali.add(tempEsercizio);
+                        }
+                    }
+                    list.addAll(tempPetto);
+                    list.addAll(tempGambe);
+                    list.addAll(tempDorsali);
+                    adapter.notifyDataSetChanged();
                 }
             }
         });

@@ -28,13 +28,16 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_esercizi);
         TextView txtSerie = (TextView)findViewById(R.id.txt_serie);
         TextView txtRep = (TextView)findViewById(R.id.txt_ripetizioni);
+        TextView txtPeso = (TextView)findViewById(R.id.txt_peso);
         Intent intent = getIntent();
         String txt = intent.getStringExtra("ESERCIZIO");
         String serie = intent.getStringExtra("SERIE");
         String rep = intent.getStringExtra("RIPETIZIONI");
+        String peso = intent.getStringExtra("PESO");
 
         txtSerie.setText(serie);
         txtRep.setText(rep);
+        txtPeso.setText(peso);
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar_esercizi);
         setSupportActionBar(toolbar);

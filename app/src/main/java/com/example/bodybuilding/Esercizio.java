@@ -6,14 +6,17 @@ public class Esercizio {
     private boolean selected;
     private int serie;
     private int rep;
+    private int peso;
 
-    public Esercizio(String nome, int serie, int rep){
+    public Esercizio(String nome, int serie, int rep, int peso){
         this.nome = nome;
         this.rep = rep;
         this.serie = serie;
+        this.peso = peso;
     }
-    public Esercizio(String nome) {
+    public Esercizio(String nome, String categoria) {
         this.nome = nome;
+        this.categoria = categoria;
     }
 
     public String getName(){
@@ -39,6 +42,10 @@ public class Esercizio {
     public int getRep(){
         return rep;
     }
+    public int getPeso(){
+        return peso;
+    }
+
     public void setRep(int a){
         rep = a;
     }
@@ -48,7 +55,7 @@ public class Esercizio {
 
     public String toString(){
         String s;
-        s = nome+"_"+serie+"_"+rep;
+        s = nome+"_"+serie+"_"+rep+"_"+peso;
         return s;
     }
 }
