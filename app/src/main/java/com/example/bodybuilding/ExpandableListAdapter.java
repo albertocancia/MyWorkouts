@@ -116,7 +116,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                         }
                     }
                 });
-                context.startActivity(new Intent(new Intent(context, MainActivity.class)));
+                context.startActivity(new Intent(new Intent(context, MainActivity.class )));
                 Toast.makeText(context, "Scheda eliminata per il giorno: "+giorno,
                         Toast.LENGTH_LONG).show();
             }

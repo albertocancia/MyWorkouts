@@ -16,9 +16,9 @@
         android:icon="@drawable/ic_dieta"
         android:title="@string/bottom_dieta" />
 
-    <item
+    <!-- <item
         android:id="@+id/nav_timer"
         android:icon="@drawable/ic_timer"
-        android:title="@string/bottom_timer" />
+        android:title="@string/bottom_timer" /> -->
     
 </menu>

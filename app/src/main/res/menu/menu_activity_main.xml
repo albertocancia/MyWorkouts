@@ -8,14 +8,14 @@
         android:icon="@drawable/ic_scheda"
         app:showAsAction="always" />
     <!-- <item
-        android:id="@+id/action_new_diet"
-        android:title="new_diet"
-        android:icon="@drawable/ic_dieta"
-        app:showAsAction="always" /> -->
-    <item
         android:id="@+id/action_add_calendar"
         android:title="add_calendar"
         android:icon="@android:drawable/ic_menu_my_calendar"
+        app:showAsAction="always" /> -->
+    <item
+        android:id="@+id/action_edit"
+        android:title="settings"
+        android:icon="@android:drawable/ic_menu_edit"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_signout"

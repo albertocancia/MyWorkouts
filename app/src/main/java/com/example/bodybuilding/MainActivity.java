@@ -84,24 +84,12 @@ public class MainActivity extends AppCompatActivity {
             // Start as sub-activity for result
             startActivity(intent);
             return true;
-        /*}else if (id == R.id.action_new_diet) {
-            Log.d(TAG,"action ADD diet has clicked");
+        }else if (id == R.id.action_edit) {
+            Log.d(TAG,"action Edit has clicked");
             // Explicit intent creation
-            Intent intent = new Intent(this.getApplicationContext(), NewDietActivity.class);
+            Intent intent = new Intent(this.getApplicationContext(), EditActivity.class);
             // Start as sub-activity for result
             startActivity(intent);
-            return true;*/
-        } else if (id == R.id.action_add_calendar) {
-            Log.d(TAG,"action AddCalendar clicked");
-            Calendar calendarEvent = Calendar.getInstance();
-            Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setType("vnd.android.cursor.item/event");
-            intent.putExtra("beginTime", calendarEvent.getTimeInMillis());
-            intent.putExtra("endTime", calendarEvent.getTimeInMillis() + 60 * 60 * 1000);
-            intent.putExtra("title", "Allenamento");
-            intent.putExtra("allDay", false);
-            startActivity(intent);
-            finish();
             return true;
         }else if (id == R.id.action_signout) {
             Log.d(TAG,"action SignOut clicked");
@@ -128,9 +116,6 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_dieta:
                             selectedFragment = new DietaFragment();
-                            break;
-                        case R.id.nav_timer:
-                            selectedFragment = new CalendarFragment();
                             break;
                     }
 

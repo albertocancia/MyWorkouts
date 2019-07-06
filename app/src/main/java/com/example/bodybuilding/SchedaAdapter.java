@@ -76,7 +76,7 @@ public class SchedaAdapter extends ArrayAdapter<Esercizio> {
                     int peso = Integer.parseInt(holder.edPeso.getText().toString());
                     nuovaLista.add(new Esercizio(nomeEs,serie,rep,peso));
 
-                    Toast.makeText(mContext,"Serie: "+serie+" Rep: "+rep+"Peso: "+peso,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,"Serie: "+serie+" Rep: "+rep+" Peso: "+peso,Toast.LENGTH_SHORT).show();
 
                 } else {
                     //arrayPeople.get(position).setShowName(false);
