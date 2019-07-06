@@ -38,11 +38,14 @@ public class HomeFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference utentiRef = db.collection("Utenti");
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseAuth mAuth;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        mAuth = FirebaseAuth.getInstance();
 
         txtNome = v.findViewById(R.id.txtNome);
         txtEmail = v.findViewById(R.id.txtEmail);
@@ -50,28 +53,30 @@ public class HomeFragment extends Fragment {
         txtAltezza = v.findViewById(R.id.txtAltezza);
         btn_add_workout= v.findViewById(R.id.btn_add_workout);
 
-        utentiRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
-                    Iterator<DocumentSnapshot> iterator = myListOfDocuments.iterator();
-                    DocumentSnapshot ds;
-                    while (iterator.hasNext()) {
-                        ds = iterator.next();
-                        String uid = (String) ds.getId();
-                        if(user.getUid().equals(uid)) {
-                            long peso = (long) ds.get("peso");
-                            long altezza = (long) ds.get("altezza");
-                            txtNome.setText("Nome: " + (String) ds.get(("nome")));
-                            txtEmail.setText("Email: " + (String) user.getEmail());
-                            txtPeso.setText("Peso: " + Long.toString(peso));
-                            txtAltezza.setText("Altezza: " + Long.toString(altezza));
+        if(user != null){
+            utentiRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
+                        Iterator<DocumentSnapshot> iterator = myListOfDocuments.iterator();
+                        DocumentSnapshot ds;
+                        while (iterator.hasNext()) {
+                            ds = iterator.next();
+                            String uid = (String) ds.getId();
+                            if(user.getUid().equals(uid)) {
+                                long peso = (long) ds.get("peso");
+                                long altezza = (long) ds.get("altezza");
+                                txtNome.setText("Nome: " + (String) ds.get(("nome")));
+                                txtEmail.setText("Email: " + (String) user.getEmail());
+                                txtPeso.setText("Peso: " + Long.toString(peso));
+                                txtAltezza.setText("Altezza: " + Long.toString(altezza));
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
 
         btn_add_workout.setOnClickListener(new View.OnClickListener() {
             @Override
