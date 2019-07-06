@@ -86,6 +86,9 @@ public class NewItemActivity extends AppCompatActivity {
                     List<Esercizio> tempPetto = new ArrayList<Esercizio>();
                     List<Esercizio> tempGambe = new ArrayList<Esercizio>();
                     List<Esercizio> tempDorsali = new ArrayList<Esercizio>();
+                    List<Esercizio> tempTricipiti = new ArrayList<Esercizio>();
+                    List<Esercizio> tempBicipiti = new ArrayList<Esercizio>();
+                    List<Esercizio> tempAddome = new ArrayList<Esercizio>();
                     Esercizio tempEsercizio;
                     while(iteratorLista.hasNext()){
                         tempEsercizio = iteratorLista.next();
@@ -95,11 +98,20 @@ public class NewItemActivity extends AppCompatActivity {
                             tempGambe.add(tempEsercizio);
                         }else if(tempEsercizio.getCategoria().equals("Dorsali")){
                             tempDorsali.add(tempEsercizio);
+                        }else if(tempEsercizio.getCategoria().equals("Tricipiti")){
+                            tempTricipiti.add(tempEsercizio);
+                        }else if(tempEsercizio.getCategoria().equals("Bicipiti")){
+                            tempBicipiti.add(tempEsercizio);
+                        }else if(tempEsercizio.getCategoria().equals("Addominali")){
+                            tempAddome.add(tempEsercizio);
                         }
                     }
                     list.addAll(tempPetto);
                     list.addAll(tempGambe);
                     list.addAll(tempDorsali);
+                    list.addAll(tempTricipiti);
+                    list.addAll(tempBicipiti);
+                    list.addAll(tempAddome);
                     adapter.notifyDataSetChanged();
                 }
             }
