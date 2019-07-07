@@ -41,16 +41,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class NewItemActivity extends AppCompatActivity {
+public class NewItemActivityProva extends AppCompatActivity {
     final String TAG = "NewItemActivity";
-    SchedaAdapter adapter;           //creazione adapter
+    ArrayAdapter<String> adapter;           //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
     List<Esercizio> list = new ArrayList<Esercizio>();
     List<Esercizio> tempList = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String giorno;
-    List<String> giorni;    //lista usata per sapere quali giorni hanno gia un allenamento
+    //List<String> giorni;    //lista usata per sapere quali giorni hanno gia un allenamento
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class NewItemActivity extends AppCompatActivity {
 
 
         eserciziList = new ArrayList<String>();
-        adapter = new SchedaAdapter(this,list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, eserciziList);
 
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -109,12 +109,32 @@ public class NewItemActivity extends AppCompatActivity {
                             tempAddome.add(tempEsercizio);
                         }
                     }
-                    list.addAll(tempPetto);
-                    list.addAll(tempGambe);
-                    list.addAll(tempDorsali);
-                    list.addAll(tempTricipiti);
-                    list.addAll(tempBicipiti);
-                    list.addAll(tempAddome);
+                    Iterator<Esercizio> iteratorN = tempPetto.iterator();
+                    Esercizio temporaneo;
+                    while(iteratorN.hasNext()){
+                        temporaneo = iteratorN.next();
+                        eserciziList.add(temporaneo.getName());
+                    }
+                    iteratorN = tempDorsali.iterator();
+                    while(iteratorN.hasNext()){
+                        temporaneo = iteratorN.next();
+                        eserciziList.add(temporaneo.getName());
+                    }
+                    iteratorN = tempBicipiti.iterator();
+                    while(iteratorN.hasNext()){
+                        temporaneo = iteratorN.next();
+                        eserciziList.add(temporaneo.getName());
+                    }
+                    iteratorN = tempTricipiti.iterator();
+                    while(iteratorN.hasNext()){
+                        temporaneo = iteratorN.next();
+                        eserciziList.add(temporaneo.getName());
+                    }
+                    iteratorN = tempAddome.iterator();
+                    while(iteratorN.hasNext()){
+                        temporaneo = iteratorN.next();
+                        eserciziList.add(temporaneo.getName());
+                    }
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -123,24 +143,22 @@ public class NewItemActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View v, int position, long id){
 
-                final Dialog d = new Dialog(NewItemActivity.this);
+                final Dialog d = new Dialog(NewItemActivityProva.this);
                 d.setTitle("NumberPicker");
                 d.setContentView(R.layout.dialog);
+                final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
+                np.setMaxValue(100);
+                np.setMinValue(0);
+                np.setWrapSelectorWheel(false);
                 final NumberPicker np2 = (NumberPicker) d.findViewById(R.id.numberPicker2);
                 np2.setMaxValue(100);
                 np2.setMinValue(0);
                 np2.setWrapSelectorWheel(false);
-                /*final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-                np.setMaxValue(100);
-                np.setMinValue(0);
-                np.setWrapSelectorWheel(false);
-
                 final NumberPicker np3 = (NumberPicker) d.findViewById(R.id.numberPicker3);
                 np3.setMaxValue(100);
                 np3.setMinValue(0);
-                np3.setWrapSelectorWheel(false);*/
+                np3.setWrapSelectorWheel(false);
                 d.show();
-                //np.setOnValueChangedListener(this);
             }
         });
     }
@@ -159,44 +177,7 @@ public class NewItemActivity extends AppCompatActivity {
                 var = true;
                 break;
             case R.id.action_confirm:
-                giorni = new ArrayList<>();
-                //recupero giorni con allenamento dal DB
 
-                readData(new FirestoreCallback() {
-                    @Override
-                    public void onCallback(List<String> list) {
-                        Log.d(TAG, list.toString());
-                        //controllo per vedere se il giorno scelto è gia presente nel DB
-                        boolean controllo = false;
-                        if(!giorni.isEmpty() && giorni.contains(giorno))
-                            controllo = true;
-
-                        //se non è presente aggiungi i corrispondenti esercizi
-                        if(!controllo) {
-                            List<Esercizio> nuovaLista = adapter.nuovaScheda(); //prendo la lista creata dall'utente
-                            List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
-                            Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
-
-                            while (crunchifyIterator.hasNext()) {
-                                eserciziString.add(crunchifyIterator.next().toString()); //aggiungo alla lista di string la stringa completa
-                            }
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            CollectionReference cr = db.collection("Schede");
-
-                            Scheda scheda = new Scheda(user.getUid(), giorno, eserciziString);
-                            cr.add(scheda);
-                            //Intent intent = new Intent();
-                            //setResult(RESULT_OK, intent);
-                            finish();
-                            Intent newIntent = new Intent(NewItemActivity.this, MainActivity.class);
-                            // Start as sub-activity for result
-                            startActivity(newIntent);
-                        }else{ //altrimenti messaggio di errore
-                            Toast.makeText(NewItemActivity.this, "Scheda già presente per "+giorno,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
                 var = true;
                 break;
             default:
@@ -207,7 +188,7 @@ public class NewItemActivity extends AppCompatActivity {
 
     //prendo i dati dal db e richiamo firestoreCallback.onCallback(giorni)
     //onCallback aggiunge gli esercizi o mostra il messaggio di errore
-    private void readData(final FirestoreCallback firestoreCallback){
+    /*private void readData(final FirestoreCallback firestoreCallback){
         db.collection("Schede").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -225,7 +206,7 @@ public class NewItemActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
     //interfaccia utilizzata per usare i dati recuperati
     //dal db al di fuori di onComplete
@@ -240,3 +221,4 @@ public class NewItemActivity extends AppCompatActivity {
         return true;
     }
 }
+

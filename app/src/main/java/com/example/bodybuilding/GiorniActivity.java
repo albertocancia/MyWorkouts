@@ -1,6 +1,7 @@
 package com.example.bodybuilding;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,8 +40,7 @@ public class GiorniActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View v, int position, long id){
-
-                Intent intent = new Intent(v.getContext(), NewItemActivity.class);
+                Intent intent = new Intent(v.getContext(), NewItemActivityProva.class);
                 String text = giorniArray[position];
                 //based on item add info to intent
                 intent.putExtra("GIORNO",text);
