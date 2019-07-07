@@ -2,6 +2,37 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="228dp"
+        android:text="Serie"
+        android:textColor="@color/textEsercizi"
+        android:textSize="15sp" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="115dp"
+        android:text="Ripetizioni"
+        android:textColor="@color/textEsercizi"
+        android:textSize="15sp" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="50dp"
+        android:text="Peso"
+        android:textColor="@color/textEsercizi"
+        android:textSize="15sp" />
+
+
     <NumberPicker
         android:id="@+id/numberPicker1"
         android:layout_width="wrap_content"
@@ -29,11 +60,16 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="31dp" />
-    <!--<Button
-        android:id="@+id/button2"
+
+    <Button
+        android:id="@+id/buttonAnnulla"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel" />-->
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="154dp"
+        android:text="Annulla" />
 
     <Button
         android:id="@+id/buttonAdd"
@@ -43,6 +79,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="220dp"
         android:layout_marginEnd="40dp"
-        android:text="Set" />
+        android:text="Aggiungi" />
 
 </RelativeLayout>

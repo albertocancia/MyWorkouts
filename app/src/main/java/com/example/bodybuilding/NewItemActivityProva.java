@@ -154,6 +154,7 @@ public class NewItemActivityProva extends AppCompatActivity {
                 d.setTitle("NumberPicker");
                 d.setContentView(R.layout.dialog);
                 final Button buttonAdd = d.findViewById(R.id.buttonAdd);
+                final Button buttonAnnulla = d.findViewById(R.id.buttonAnnulla);
                 final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
                 np.setMaxValue(100);
                 np.setMinValue(0);
@@ -179,6 +180,14 @@ public class NewItemActivityProva extends AppCompatActivity {
                         txtRep.setText(""+rep);
                         txtPeso.setText(""+peso);
                         listCost.add(nuovo);
+
+                        d.dismiss();
+                    }
+                });
+                buttonAnnulla.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
 
                         d.dismiss();
                     }
