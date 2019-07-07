@@ -1,6 +1,5 @@
 package com.example.bodybuilding;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,58 +9,47 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.TextView;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Document;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-public class NewItemActivityProva extends AppCompatActivity {
+public class EserciziExpandableActivity extends AppCompatActivity {
     final String TAG = "NewItemActivity";
-    ArrayAdapter<String> adapter;           //creazione adapter
+    private ExpandableEserciziAdapter adapter;           //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
     List<Esercizio> listCost = new ArrayList<Esercizio>();
     List<Esercizio> tempList = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private ListView listView;
+    private ExpandableListView listView;
+    private HashMap<String, List<String>> listHash;
     String giorno;
     List<String> giorni;    //lista usata per sapere quali giorni hanno gia un allenamento
+    private List<String> listDataHeader;
+    private List<String> es = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         giorno = intent.getStringExtra("GIORNO");
-        setContentView(R.layout.activity_new_item);// to read the todo string
-        listView = findViewById(R.id.list);
+        setContentView(R.layout.activity_esercizi_expandable);// to read the todo string
+        listView = findViewById(R.id.exp_list);
+        listHash = new HashMap<>();
+        listDataHeader = new ArrayList<>();
 
         Toolbar myToolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(myToolbar);
@@ -69,10 +57,28 @@ public class NewItemActivityProva extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(giorno);
 
+
+        listDataHeader.add("PETTO");
+        listDataHeader.add("GAMBE");
+        listDataHeader.add("DORSALI");
+        listDataHeader.add("SPALLE");
+        listDataHeader.add("BICIPITI");
+        listDataHeader.add("TRICIPITI");
+        listDataHeader.add("ADDOMINALI");
+
+        es.add("");
+        listHash.put(listDataHeader.get(0), es);
+        listHash.put(listDataHeader.get(1), es);
+        listHash.put(listDataHeader.get(2), es);
+        listHash.put(listDataHeader.get(3), es);
+        listHash.put(listDataHeader.get(4), es);
+        listHash.put(listDataHeader.get(5), es);
+        listHash.put(listDataHeader.get(6), es);
+
         // fineeeeeeeeeeeeeeeeeeee
         final Context context = this;
         eserciziList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this, R.layout.row_prova, R.id.labelEs, eserciziList);
+        adapter = new ExpandableEserciziAdapter(this, listDataHeader, listHash);
 
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -81,119 +87,52 @@ public class NewItemActivityProva extends AppCompatActivity {
                     List<DocumentSnapshot> myListOfDocuments = task.getResult().getDocuments();
                     Iterator<DocumentSnapshot> iterator = myListOfDocuments.iterator();
                     DocumentSnapshot ds;
+
                     while (iterator.hasNext()) {
                         ds = iterator.next();
-                        tempList.add(new Esercizio((String) ds.get("Nome"),(String)ds.get("Categoria")));
-
-                        adapter.notifyDataSetChanged();
+                        String nome = (String)ds.get("Nome");
+                        String categoria = (String)ds.get("Categoria");
+                        tempList.add(new Esercizio(nome,categoria));
                     }
                     Iterator<Esercizio> iteratorLista = tempList.iterator();
-                    List<Esercizio> tempPetto = new ArrayList<Esercizio>();
-                    List<Esercizio> tempGambe = new ArrayList<Esercizio>();
-                    List<Esercizio> tempDorsali = new ArrayList<Esercizio>();
-                    List<Esercizio> tempTricipiti = new ArrayList<Esercizio>();
-                    List<Esercizio> tempBicipiti = new ArrayList<Esercizio>();
-                    List<Esercizio> tempAddome = new ArrayList<Esercizio>();
+                    List<String> tempPetto = new ArrayList<>();
+                    List<String> tempGambe = new ArrayList<>();
+                    List<String> tempSpalle = new ArrayList<>();
+                    List<String> tempDorsali = new ArrayList<>();
+                    List<String> tempBicipiti = new ArrayList<>();
+                    List<String> tempTricipiti = new ArrayList<>();
+                    List<String> tempAddome = new ArrayList<>();
                     Esercizio tempEsercizio;
                     while(iteratorLista.hasNext()){
                         tempEsercizio = iteratorLista.next();
                         if(tempEsercizio.getCategoria().equals("Petto")){
-                            tempPetto.add(tempEsercizio);
+                            tempPetto.add(tempEsercizio.getName());
                         }else if(tempEsercizio.getCategoria().equals("Gambe")){
-                            tempGambe.add(tempEsercizio);
+                            tempGambe.add(tempEsercizio.getName());
                         }else if(tempEsercizio.getCategoria().equals("Dorsali")){
-                            tempDorsali.add(tempEsercizio);
+                            tempDorsali.add(tempEsercizio.getName());
                         }else if(tempEsercizio.getCategoria().equals("Tricipiti")){
-                            tempTricipiti.add(tempEsercizio);
+                            tempTricipiti.add(tempEsercizio.getName());
                         }else if(tempEsercizio.getCategoria().equals("Bicipiti")){
-                            tempBicipiti.add(tempEsercizio);
+                            tempBicipiti.add(tempEsercizio.getName());
                         }else if(tempEsercizio.getCategoria().equals("Addominali")){
-                            tempAddome.add(tempEsercizio);
+                            tempAddome.add(tempEsercizio.getName());
+                        }else if(tempEsercizio.getCategoria().equals("Spalle")){
+                            tempSpalle.add(tempEsercizio.getName());
                         }
                     }
-                    Iterator<Esercizio> iteratorN = tempPetto.iterator();
-                    Esercizio temporaneo;
-                    while(iteratorN.hasNext()){
-                        temporaneo = iteratorN.next();
-                        eserciziList.add(temporaneo.getName());
-                    }
-                    iteratorN = tempDorsali.iterator();
-                    while(iteratorN.hasNext()){
-                        temporaneo = iteratorN.next();
-                        eserciziList.add(temporaneo.getName());
-                    }
-                    iteratorN = tempBicipiti.iterator();
-                    while(iteratorN.hasNext()){
-                        temporaneo = iteratorN.next();
-                        eserciziList.add(temporaneo.getName());
-                    }
-                    iteratorN = tempTricipiti.iterator();
-                    while(iteratorN.hasNext()){
-                        temporaneo = iteratorN.next();
-                        eserciziList.add(temporaneo.getName());
-                    }
-                    iteratorN = tempAddome.iterator();
-                    while(iteratorN.hasNext()){
-                        temporaneo = iteratorN.next();
-                        eserciziList.add(temporaneo.getName());
-                    }
+                    listHash.put("PETTO", tempPetto);
+                    listHash.put("DORSALI", tempDorsali);
+                    listHash.put("SPALLE", tempSpalle);
+                    listHash.put("GAMBE", tempGambe);
+                    listHash.put("ADDOME", tempAddome);
+                    listHash.put("TRICIPITI", tempTricipiti);
+                    listHash.put("BICIPITI", tempBicipiti);
                     adapter.notifyDataSetChanged();
                 }
             }
         });
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id){
-                final TextView txtEs = (TextView) v.findViewById(R.id.labelEs);
-                final TextView txtSerie = (TextView) v.findViewById(R.id.labelSerie);
-                final TextView txtRep = (TextView) v.findViewById(R.id.labelRep);
-                final TextView txtPeso = (TextView) v.findViewById(R.id.labelPeso);
-                final String nomeEsercizio = txtEs.getText().toString();
-                Toast.makeText(context, "Esercizio: "+nomeEsercizio, Toast.LENGTH_SHORT).show();
-                final Dialog d = new Dialog(NewItemActivityProva.this);
-                d.setTitle("NumberPicker");
-                d.setContentView(R.layout.dialog);
-                final Button buttonAdd = d.findViewById(R.id.buttonAdd);
-                final Button buttonAnnulla = d.findViewById(R.id.buttonAnnulla);
-                final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-                np.setMaxValue(100);
-                np.setMinValue(0);
-                np.setWrapSelectorWheel(false);
-                final NumberPicker np2 = (NumberPicker) d.findViewById(R.id.numberPicker2);
-                np2.setMaxValue(100);
-                np2.setMinValue(0);
-                np2.setWrapSelectorWheel(false);
-                final NumberPicker np3 = (NumberPicker) d.findViewById(R.id.numberPicker3);
-                np3.setMaxValue(100);
-                np3.setMinValue(0);
-                np3.setWrapSelectorWheel(false);
-                d.show();
-                buttonAdd.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v) {
-                        int serie = np.getValue();
-                        int rep = np2.getValue();
-                        int peso = np3.getValue();
-                        Esercizio nuovo = new Esercizio(nomeEsercizio,serie,rep,peso);
-                        txtSerie.setText(""+serie);
-                        txtRep.setText(""+rep);
-                        txtPeso.setText(""+peso);
-                        listCost.add(nuovo);
-
-                        d.dismiss();
-                    }
-                });
-                buttonAnnulla.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View v) {
-
-                        d.dismiss();
-                    }
-                });
-            }
-        });
     }
 
     //Per tornare indietro a GiorniActivity
@@ -213,7 +152,7 @@ public class NewItemActivityProva extends AppCompatActivity {
                 giorni = new ArrayList<>();
                 //recupero giorni con allenamento dal DB
 
-                readData(new NewItemActivityProva.FirestoreCallback() {
+                readData(new EserciziExpandableActivity.FirestoreCallback() {
                     @Override
                     public void onCallback(List<String> list) {
                         Log.d(TAG, list.toString());
@@ -224,7 +163,7 @@ public class NewItemActivityProva extends AppCompatActivity {
 
                         //se non è presente aggiungi i corrispondenti esercizi
                         if(!controllo) {
-                            List<Esercizio> nuovaLista = listCost;
+                            List<Esercizio> nuovaLista = adapter.getLista();
                             List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
                             Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
 
@@ -239,11 +178,11 @@ public class NewItemActivityProva extends AppCompatActivity {
                             //Intent intent = new Intent();
                             //setResult(RESULT_OK, intent);
                             finish();
-                            Intent newIntent = new Intent(NewItemActivityProva.this, MainActivity.class);
+                            Intent newIntent = new Intent(EserciziExpandableActivity.this, MainActivity.class);
                             // Start as sub-activity for result
                             startActivity(newIntent);
                         }else{ //altrimenti messaggio di errore
-                            Toast.makeText(NewItemActivityProva.this, "Scheda già presente per "+giorno,
+                            Toast.makeText(EserciziExpandableActivity.this, "Scheda già presente per "+giorno,
                                     Toast.LENGTH_LONG).show();
                         }
                     }
@@ -258,7 +197,7 @@ public class NewItemActivityProva extends AppCompatActivity {
 
     //prendo i dati dal db e richiamo firestoreCallback.onCallback(giorni)
     //onCallback aggiunge gli esercizi o mostra il messaggio di errore
-    private void readData(final FirestoreCallback firestoreCallback){
+    private void readData(final EserciziExpandableActivity.FirestoreCallback firestoreCallback){
         db.collection("Schede").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -291,4 +230,3 @@ public class NewItemActivityProva extends AppCompatActivity {
         return true;
     }
 }
-

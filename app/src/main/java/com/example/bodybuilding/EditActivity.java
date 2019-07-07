@@ -1,17 +1,14 @@
 package com.example.bodybuilding;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,8 +33,8 @@ public class EditActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        edit_peso = (EditText) findViewById(R.id.edit_peso);
-        edit_altezza = (EditText) findViewById(R.id.edit_altezza);
+        edit_peso = findViewById(R.id.edit_peso);
+        edit_altezza = findViewById(R.id.edit_altezza);
     }
 
     @Override

@@ -10,19 +10,15 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".EditActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".EserciziExpandableActivity"></activity>
+        <activity
+            android:name=".EditActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EserciziActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".GiorniActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NewItemActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NewItemActivityProva"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"

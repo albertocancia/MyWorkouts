@@ -11,10 +11,6 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.util.StringTokenizer;
-
 public class EserciziActivity extends AppCompatActivity implements View.OnClickListener{
     private Toolbar toolbar;
     private Chronometer chronometer;
@@ -39,7 +35,7 @@ public class EserciziActivity extends AppCompatActivity implements View.OnClickL
         txtRep.setText(rep);
         txtPeso.setText(peso);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar_esercizi);
+        toolbar = findViewById(R.id.tool_bar_esercizi);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

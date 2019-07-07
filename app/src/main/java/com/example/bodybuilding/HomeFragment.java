@@ -16,15 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -98,37 +95,5 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
-    public String getEmail() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email="";
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            email = user.getEmail();
-        }
-        return email;
-    }
 
-    public String getNome(){
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DocumentReference docRef = db.collection("Utenti").document(user.getUid());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        //Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        name = (String)document.get("Nome");
-                    } else {
-                        //Log.d(TAG, "No such document");
-                    }
-                } else {
-                    //Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });*/
-
-        return "";
-    }
 }

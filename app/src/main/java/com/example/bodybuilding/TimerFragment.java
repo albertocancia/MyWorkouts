@@ -1,9 +1,6 @@
 package com.example.bodybuilding;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
+
 
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,12 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.Toast;
-
-import java.util.Calendar;
-import java.util.Date;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class TimerFragment extends Fragment implements View.OnClickListener{

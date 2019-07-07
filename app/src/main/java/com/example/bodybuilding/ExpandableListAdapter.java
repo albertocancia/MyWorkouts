@@ -3,15 +3,12 @@ package com.example.bodybuilding;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import static android.support.constraint.Constraints.TAG;
 
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -132,7 +128,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.child_layout,null);
-        // ++++++++++++++++ NUOVO ++++++++++++++++++++++++++++++++
+
         StringTokenizer stToken = new StringTokenizer(childText,"_");
         String nomeEs ="", numSerie ="", numRep = "", peso = "";
         if(stToken.hasMoreTokens())
@@ -153,7 +149,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         holder.txtSerie.setText(numSerie);
         holder.txtRipetizioni.setText(numRep);
         holder.txtPeso.setText(peso);
-        // +++++++++++++++++ FINE NUOVO ++++++++++++++++++++++++++
+
         TextView txt = view.findViewById(R.id.child_txt);
         holder.txtEsercizio.setOnClickListener(new View.OnClickListener() {
 
