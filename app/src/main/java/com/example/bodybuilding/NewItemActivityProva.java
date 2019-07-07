@@ -1,6 +1,7 @@
 package com.example.bodybuilding;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,12 +47,13 @@ public class NewItemActivityProva extends AppCompatActivity {
     final String TAG = "NewItemActivity";
     ArrayAdapter<String> adapter;           //creazione adapter
     ArrayList<String> eserciziList;  //arraylist di esercizi
-    List<Esercizio> list = new ArrayList<Esercizio>();
+    List<Esercizio> listCost = new ArrayList<Esercizio>();
     List<Esercizio> tempList = new ArrayList<Esercizio>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private ListView listView;
     String giorno;
-    //List<String> giorni;    //lista usata per sapere quali giorni hanno gia un allenamento
+    List<String> giorni;    //lista usata per sapere quali giorni hanno gia un allenamento
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class NewItemActivityProva extends AppCompatActivity {
         Intent intent = getIntent();
         giorno = intent.getStringExtra("GIORNO");
         setContentView(R.layout.activity_new_item);// to read the todo string
-        ListView listView = findViewById(R.id.list);
+        listView = findViewById(R.id.list);
 
         Toolbar myToolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(myToolbar);
@@ -67,10 +70,9 @@ public class NewItemActivityProva extends AppCompatActivity {
         getSupportActionBar().setTitle(giorno);
 
         // fineeeeeeeeeeeeeeeeeeee
-
-
+        final Context context = this;
         eserciziList = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, eserciziList);
+        adapter = new ArrayAdapter<String>(this, R.layout.row_prova, R.id.labelEs, eserciziList);
 
         db.collection("Esercizi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -142,10 +144,16 @@ public class NewItemActivityProva extends AppCompatActivity {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View v, int position, long id){
-
+                final TextView txtEs = (TextView) v.findViewById(R.id.labelEs);
+                final TextView txtSerie = (TextView) v.findViewById(R.id.labelSerie);
+                final TextView txtRep = (TextView) v.findViewById(R.id.labelRep);
+                final TextView txtPeso = (TextView) v.findViewById(R.id.labelPeso);
+                final String nomeEsercizio = txtEs.getText().toString();
+                Toast.makeText(context, "Esercizio: "+nomeEsercizio, Toast.LENGTH_SHORT).show();
                 final Dialog d = new Dialog(NewItemActivityProva.this);
                 d.setTitle("NumberPicker");
                 d.setContentView(R.layout.dialog);
+                final Button buttonAdd = d.findViewById(R.id.buttonAdd);
                 final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
                 np.setMaxValue(100);
                 np.setMinValue(0);
@@ -159,6 +167,22 @@ public class NewItemActivityProva extends AppCompatActivity {
                 np3.setMinValue(0);
                 np3.setWrapSelectorWheel(false);
                 d.show();
+                buttonAdd.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        int serie = np.getValue();
+                        int rep = np2.getValue();
+                        int peso = np3.getValue();
+                        Esercizio nuovo = new Esercizio(nomeEsercizio,serie,rep,peso);
+                        txtSerie.setText(""+serie);
+                        txtRep.setText(""+rep);
+                        txtPeso.setText(""+peso);
+                        listCost.add(nuovo);
+
+                        d.dismiss();
+                    }
+                });
             }
         });
     }
@@ -177,7 +201,44 @@ public class NewItemActivityProva extends AppCompatActivity {
                 var = true;
                 break;
             case R.id.action_confirm:
+                giorni = new ArrayList<>();
+                //recupero giorni con allenamento dal DB
 
+                readData(new NewItemActivityProva.FirestoreCallback() {
+                    @Override
+                    public void onCallback(List<String> list) {
+                        Log.d(TAG, list.toString());
+                        //controllo per vedere se il giorno scelto è gia presente nel DB
+                        boolean controllo = false;
+                        if(!giorni.isEmpty() && giorni.contains(giorno))
+                            controllo = true;
+
+                        //se non è presente aggiungi i corrispondenti esercizi
+                        if(!controllo) {
+                            List<Esercizio> nuovaLista = listCost;
+                            List<String> eserciziString = new ArrayList<String>();  //creo lista per le stringhe
+                            Iterator<Esercizio> crunchifyIterator = nuovaLista.iterator();
+
+                            while (crunchifyIterator.hasNext()) {
+                                eserciziString.add(crunchifyIterator.next().toString()); //aggiungo alla lista di string la stringa completa
+                            }
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            CollectionReference cr = db.collection("Schede");
+
+                            Scheda scheda = new Scheda(user.getUid(), giorno, eserciziString);
+                            cr.add(scheda);
+                            //Intent intent = new Intent();
+                            //setResult(RESULT_OK, intent);
+                            finish();
+                            Intent newIntent = new Intent(NewItemActivityProva.this, MainActivity.class);
+                            // Start as sub-activity for result
+                            startActivity(newIntent);
+                        }else{ //altrimenti messaggio di errore
+                            Toast.makeText(NewItemActivityProva.this, "Scheda già presente per "+giorno,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
                 var = true;
                 break;
             default:
@@ -188,7 +249,7 @@ public class NewItemActivityProva extends AppCompatActivity {
 
     //prendo i dati dal db e richiamo firestoreCallback.onCallback(giorni)
     //onCallback aggiunge gli esercizi o mostra il messaggio di errore
-    /*private void readData(final FirestoreCallback firestoreCallback){
+    private void readData(final FirestoreCallback firestoreCallback){
         db.collection("Schede").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -206,7 +267,7 @@ public class NewItemActivityProva extends AppCompatActivity {
                 }
             }
         });
-    }*/
+    }
 
     //interfaccia utilizzata per usare i dati recuperati
     //dal db al di fuori di onComplete

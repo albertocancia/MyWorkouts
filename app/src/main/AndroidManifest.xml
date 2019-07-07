@@ -22,6 +22,9 @@
             android:name=".NewItemActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".NewItemActivityProva"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait" />
         <activity
