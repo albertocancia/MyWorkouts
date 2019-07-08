@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/child_txt"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:layout_marginTop="10dp"
@@ -15,7 +15,7 @@
         android:layout_alignBottom="@id/serie_txt1"/>
     <TextView
         android:id="@+id/serie_txt1"
-        android:layout_width="150px"
+        android:layout_width="100px"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:layout_marginEnd="6dp"
@@ -24,7 +24,7 @@
         />
     <TextView
         android:id="@+id/rep_txt"
-        android:layout_width="150px"
+        android:layout_width="100px"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:layout_marginEnd="6dp"
@@ -33,7 +33,7 @@
         />
     <TextView
         android:id="@+id/peso_txt"
-        android:layout_width="150px"
+        android:layout_width="100px"
         android:layout_height="wrap_content"
         android:textSize="18dp"
         android:layout_alignParentRight="true"

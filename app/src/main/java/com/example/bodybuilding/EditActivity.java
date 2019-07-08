@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,17 +58,42 @@ public class EditActivity extends AppCompatActivity {
             // goto back activity from here
             //startActivity(new Intent(this.getApplicationContext(), MainActivity.class));
             case R.id.action_confirm:
-                peso = Integer.parseInt(edit_peso.getText().toString());
-                altezza = Integer.parseInt(edit_altezza.getText().toString());
-                utentiRef.document(user.getUid())
-                        .update(
-                                "peso", peso,
-                                "altezza", altezza
-                        );
-                Intent newIntent = new Intent(this, MainActivity.class);
-                // Start as sub-activity for result
-                startActivity(newIntent);
-                finish();
+
+                if( !(edit_peso.getText().toString().equals("")) && !(edit_altezza.getText().toString().equals("")) ) {
+                    peso = Integer.parseInt(edit_peso.getText().toString());
+                    altezza = Integer.parseInt(edit_altezza.getText().toString());
+                    utentiRef.document(user.getUid())
+                            .update(
+                                    "peso", peso,
+                                    "altezza", altezza
+                            );
+                    Intent newIntent = new Intent(this, MainActivity.class);
+                    // Start as sub-activity for result
+                    startActivity(newIntent);
+                    finish();
+                }else if( !(edit_peso.getText().toString().equals("")) ) {
+                    peso = Integer.parseInt(edit_peso.getText().toString());
+                    utentiRef.document(user.getUid())
+                            .update(
+                                    "peso", peso
+                            );
+                    Intent newIntent = new Intent(this, MainActivity.class);
+                    // Start as sub-activity for result
+                    startActivity(newIntent);
+                    finish();
+                }else if( !(edit_altezza.getText().toString().equals("")) ) {
+                    altezza = Integer.parseInt(edit_altezza.getText().toString());
+                    utentiRef.document(user.getUid())
+                            .update(
+                                    "altezza", altezza
+                            );
+                    Intent newIntent = new Intent(this, MainActivity.class);
+                    // Start as sub-activity for result
+                    startActivity(newIntent);
+                    finish();
+                }else{
+                    Toast.makeText(this, "Inserire valore per almeno un campo", Toast.LENGTH_SHORT).show();
+                }
 
             default:
                 return super.onOptionsItemSelected(item);

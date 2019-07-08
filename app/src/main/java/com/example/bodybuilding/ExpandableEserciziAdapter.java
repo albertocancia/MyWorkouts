@@ -134,6 +134,10 @@ public class ExpandableEserciziAdapter extends BaseExpandableListAdapter {
                         Esercizio nuovo = new Esercizio(nomeEsercizio,serie,rep,peso);
                         listCost.add(nuovo);
 
+                        String s = "" + nomeEsercizio +" : "+serie+" X "+rep+" , "+peso+ " kg";
+
+                        Toast.makeText(context,s ,Toast.LENGTH_LONG).show();
+
                         d.dismiss();
                     }
                 });
