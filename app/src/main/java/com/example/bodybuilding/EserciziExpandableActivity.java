@@ -60,7 +60,7 @@ public class EserciziExpandableActivity extends AppCompatActivity {
 
         listDataHeader.add("PETTO");
         listDataHeader.add("GAMBE");
-        listDataHeader.add("DORSALI");
+        listDataHeader.add("DORSO");
         listDataHeader.add("SPALLE");
         listDataHeader.add("BICIPITI");
         listDataHeader.add("TRICIPITI");
@@ -109,7 +109,7 @@ public class EserciziExpandableActivity extends AppCompatActivity {
                             tempPetto.add(tempEsercizio.getName());
                         }else if(tempEsercizio.getCategoria().equals("Gambe")){
                             tempGambe.add(tempEsercizio.getName());
-                        }else if(tempEsercizio.getCategoria().equals("Dorsali")){
+                        }else if(tempEsercizio.getCategoria().equals("Dorso")){
                             tempDorsali.add(tempEsercizio.getName());
                         }else if(tempEsercizio.getCategoria().equals("Tricipiti")){
                             tempTricipiti.add(tempEsercizio.getName());
@@ -122,7 +122,7 @@ public class EserciziExpandableActivity extends AppCompatActivity {
                         }
                     }
                     listHash.put("PETTO", tempPetto);
-                    listHash.put("DORSALI", tempDorsali);
+                    listHash.put("DORSO", tempDorsali);
                     listHash.put("SPALLE", tempSpalle);
                     listHash.put("GAMBE", tempGambe);
                     listHash.put("ADDOMINALI", tempAddome);
