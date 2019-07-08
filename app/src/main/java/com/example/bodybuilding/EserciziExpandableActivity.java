@@ -125,7 +125,7 @@ public class EserciziExpandableActivity extends AppCompatActivity {
                     listHash.put("DORSALI", tempDorsali);
                     listHash.put("SPALLE", tempSpalle);
                     listHash.put("GAMBE", tempGambe);
-                    listHash.put("ADDOME", tempAddome);
+                    listHash.put("ADDOMINALI", tempAddome);
                     listHash.put("TRICIPITI", tempTricipiti);
                     listHash.put("BICIPITI", tempBicipiti);
                     adapter.notifyDataSetChanged();
