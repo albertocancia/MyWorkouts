@@ -27,6 +27,39 @@
                 android:textSize="20dp"
                 android:text="Parent" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/etichetta_serie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/lin"
+            android:layout_marginStart="218dp"
+            android:layout_marginTop="25px"
+            android:text="Serie"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/etichetta_rep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/lin"
+            android:layout_marginStart="260dp"
+            android:layout_marginTop="25px"
+            android:text="Ripetizioni"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/etichetta_peso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/lin"
+            android:layout_marginStart="320dp"
+            android:layout_marginTop="25px"
+            android:text="Peso"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
         <ImageView
             android:id="@+id/img_delete"
             android:layout_width="wrap_content"

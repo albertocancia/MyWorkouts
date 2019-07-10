@@ -37,6 +37,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private CollectionReference schedeRef = db.collection("Schede");
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+    private TextView etichettaSerie, etichettaRep, etichettaPeso;
+
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
         this.context = context;
@@ -89,6 +91,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         final TextView lblListHeader = (TextView)view.findViewById(R.id.parent_txt);
         ImageView imgView = (ImageView) view.findViewById(R.id.img_delete);
+        etichettaSerie = view.findViewById(R.id.etichetta_serie);
+        etichettaSerie.setText("");
+        etichettaRep = view.findViewById(R.id.etichetta_rep);
+        etichettaRep.setText("");
+        etichettaPeso = view.findViewById(R.id.etichetta_peso);
+        etichettaPeso.setText("");
 
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
@@ -128,7 +136,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.child_layout,null);
-
+        etichettaSerie.setText("Serie");
+        etichettaRep.setText("Ripetizioni");
+        etichettaPeso.setText("Peso");
         StringTokenizer stToken = new StringTokenizer(childText,"_");
         String nomeEs ="", numSerie ="", numRep = "", peso = "";
         if(stToken.hasMoreTokens())
@@ -139,6 +149,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             numRep = stToken.nextToken();
         if(stToken.hasMoreTokens())
             peso = stToken.nextToken();
+        else
+            peso = "0";
 
         holder = new ViewHolder();
         holder.txtEsercizio = view.findViewById(R.id.child_txt);
@@ -148,7 +160,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         holder.txtEsercizio.setText(nomeEs);
         holder.txtSerie.setText(numSerie);
         holder.txtRipetizioni.setText(numRep);
-        holder.txtPeso.setText(peso);
+        if(Integer.parseInt(peso)!=0)
+            holder.txtPeso.setText(peso+" kg");
+        else
+            holder.txtPeso.setText("");
 
         TextView txt = view.findViewById(R.id.child_txt);
         holder.txtEsercizio.setOnClickListener(new View.OnClickListener() {
