@@ -36,9 +36,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference schedeRef = db.collection("Schede");
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
     private TextView etichettaSerie, etichettaRep, etichettaPeso;
-
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
         this.context = context;
@@ -65,7 +63,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public Object getChild(int i, int i1) {
         return listHashMap.get(listDataHeader.get(i)).get(i1); // i = Group Item , i1 = ChildItem
     }
-
+    public String getGiorno(int i){
+        return listDataHeader.get(i);
+    }
     @Override
     public long getGroupId(int i) {
         return i;
@@ -134,6 +134,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         final ViewHolder holder;
         final String childText = (String)getChild(i,i1);
 
+
+        final String giornoSettimana = getGiorno(i);
         LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.child_layout,null);
         etichettaSerie.setText("Serie");
@@ -180,6 +182,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                     intent.putExtra("SERIE", serie);
                     intent.putExtra("RIPETIZIONI", ripetizioni);
                     intent.putExtra("PESO",pesoS);
+                    intent.putExtra("NOMECOMPLETO",childText);
+                    intent.putExtra("GIORNO",giornoSettimana);
                     context.startActivity(intent);
                 }
             }
