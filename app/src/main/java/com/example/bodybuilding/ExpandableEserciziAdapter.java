@@ -93,7 +93,7 @@ public class ExpandableEserciziAdapter extends BaseExpandableListAdapter {
         final String childText = (String)getChild(i,i1);
 
         LayoutInflater inflater = (LayoutInflater)this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.child_layout,null);
+        view = inflater.inflate(R.layout.child_layout_exp_esercizi,null);
 
 
         holder = new ExpandableListAdapter.ViewHolder();

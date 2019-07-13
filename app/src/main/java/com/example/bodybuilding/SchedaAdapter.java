@@ -17,9 +17,6 @@ import com.example.bodybuilding.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Latitude on 02/10/2016.
- */
 
 public class SchedaAdapter extends ArrayAdapter<Esercizio> {
 
