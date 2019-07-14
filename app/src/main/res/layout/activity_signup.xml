@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:scaleType="fitStart"
         android:adjustViewBounds="true"
-        android:src="@mipmap/ic_launcher_background" />
+        android:src="@mipmap/ic_launcher_foreground"/>
+
     <EditText
         android:id="@+id/txtNome"
         android:layout_width="match_parent"
